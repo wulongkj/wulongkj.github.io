@@ -9,11 +9,30 @@ var data = [
     "name": "谷歌",
     "url": "https://www.google.com",
     "tags": ["谷歌", "搜索引擎","美国"]
-  },
-  {
+  },{
+	"name":"F搜",
+	"url":"https://fsoufsou.com",
+	"tags":["F搜","搜索引擎"]
+  },{
     "name": "导航网站",
-    "url": "http://cesi.1919810.com/5",
+    "url": "http://wulongkj.github.io",
     "tags": ["导航", "导航网站","中国"]
+  },{
+	"name":"MediaFire",
+	"url":"https://mediafire.com",
+	"tags":["MediaFire","网盘","美国","免费"]
+  },{
+	"name":"文叔叔",
+	"url":"https://www.wenshushu.cn",
+	"tags":["文叔叔","网盘","中国","免费"]
+  },{
+	  "name":"Temp Mail",
+	  "url":"https://etempmail.com/zh",
+	  "tags":["临时邮箱","临时","邮箱","mail"]
+  },{
+	  "name":"百度翻译",
+	  "url":"https://fanyi.baidu.com",
+	  "tags":["百度翻译","翻译","中国"]
   }
 ];
 
@@ -34,7 +53,7 @@ document.addEventListener("DOMContentLoaded", function() {
     var url = document.createElement("a");
     url.href = website.url;
     url.textContent = website.url;
-    
+	
     navLink.appendChild(name);
     navLink.appendChild(url);
     
