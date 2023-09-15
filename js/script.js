@@ -33,6 +33,22 @@ var data = [
 	  "name":"百度翻译",
 	  "url":"https://fanyi.baidu.com",
 	  "tags":["百度翻译","翻译","中国"]
+  },{
+	  "name":"大巫",
+	  "url":"https://dawu.world",
+	  "tags":["免费openAi","免费","AI"]
+  },{
+	  "name":"谷歌地图",
+	  "url":"https://maps.google.com",
+	  "tags":["谷歌地图","地图","谷歌","美国"]
+  },{
+	  "name":"vivo官网",
+	  "url":"https://www.vivo.com.cn/service/authenticityCheck/index",
+	  "tags":["谷歌地图","地图","谷歌","美国"]
+  },{
+	  "name":"oppo官网",
+	  "url":"https://support.oppo.com/cn/check",
+	  "tags":["谷歌地图","地图","谷歌","美国"]
   }
 ];
 
