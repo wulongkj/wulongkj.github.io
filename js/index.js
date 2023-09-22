@@ -1,3 +1,5 @@
+//动态修改标题
+document.title="乌龙导航";
 // JSON数据
 var data = [
   {
@@ -42,12 +44,20 @@ var data = [
 	  "url":"https://maps.google.com",
 	  "tags":["谷歌地图","地图","谷歌","美国"]
   },{
+	  "name":"谷歌邮箱",
+	  "url":"https://accounts.google.com/b/0/AddMailService",
+	  "tags":["谷歌邮箱","美国"]
+  },{
 	  "name":"vivo官网",
 	  "url":"https://www.vivo.com.cn/service/authenticityCheck/index",
-	  "tags":["谷歌地图","地图","谷歌","美国"]
+	  "tags":["vivo官网","中国"]
   },{
 	  "name":"oppo官网",
 	  "url":"https://support.oppo.com/cn/check",
-	  "tags":["谷歌地图","地图","谷歌","美国"]
+	  "tags":["oppo官网","中国"]
+  },{
+	  "name":"路人侠二级域名分发",
+	  "url":"https://ilun.link/login",
+	  "tags":["免费二级域名","测试域名","中国"]
   }
 ];
