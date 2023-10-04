@@ -59,5 +59,9 @@ var data = [
 	  "name":"路人侠二级域名分发",
 	  "url":"https://ilun.link/login",
 	  "tags":["免费二级域名","测试域名","中国"]
+  },{
+	  "name":"w3counter",
+	  "url":"https://www.w3counter.com/signup",
+	  "tags":["w3counter","免费网络统计和工具","免费站长统计"]
   }
 ];
