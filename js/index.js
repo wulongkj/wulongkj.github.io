@@ -63,5 +63,29 @@ var data = [
 	  "name":"w3counter",
 	  "url":"https://www.w3counter.com/signup",
 	  "tags":["w3counter","免费网络统计和工具","免费站长统计"]
+  },{
+	  "name":"GMO积分",
+	  "url":"https://point.gmo.jp",
+	  "tags":["日本问卷调查","免费赚日元"]
+  },{
+	  "name":"onamae",
+	  "url":"https://www.onamae.com",
+	  "tags":["日本域名注册商","GMO积分","注册域名"]
+  },{
+	  "name":"payeer",
+	  "url":"https://payeer.com/cn/",
+	  "tags":["多国家电子钱包","payeer钱包"]
+  },{
+	  "name":"faucetpay",
+	  "url":"https://faucetpay.io/account/login",
+	  "tags":["faucetpay(水龙头钱包)多虚拟币钱包"]
+  },{
+	  "name":"gemly",
+	  "url":"https://gemly.gg",
+	  "tags":["玩赚玩游戏赚美元"]
+  },{
+	  "name":"Qolle",
+	  "url":"https://qolle.biz",
+	  "tags":["Qolle在线看视频赚钱"]
   }
 ];
