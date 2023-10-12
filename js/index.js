@@ -86,6 +86,14 @@ var data = [
   },{
 	  "name":"Qolle",
 	  "url":"https://qolle.biz",
-	  "tags":["Qolle在线看视频赚钱"]
+	  "tags":["Qolle在线看视频赚钱","卢布虚拟币"]
+  },{
+	  "name":"Coinfola",
+	  "url":"https://coinfola.com",
+	  "tags":["Coinfola在线赚钱比特币","虚拟币"]
+  },{
+	  "name":"影子vip",
+	  "url":"http://wryxmq.com",
+	  "tags":["影子vip免费解析vip视频"]
   }
 ];
