@@ -3,11 +3,14 @@ document.title="乌龙导航";
 // JSON数据
 var data = [
   {
+    "name": "小白网",
+    "url": "https://xiaobainet.github.io",
+    "tags": ["小白网","xiaobainet","github"]
+  }, {
     "name": "百度",
     "url": "https://www.baidu.com",
     "tags": ["百度", "搜索引擎","中国"]
-  },
-  {
+  },{
     "name": "谷歌",
     "url": "https://www.google.com",
     "tags": ["谷歌", "搜索引擎","美国"]
@@ -95,5 +98,24 @@ var data = [
 	  "name":"影子vip",
 	  "url":"http://wryxmq.com",
 	  "tags":["影子vip免费解析vip视频"]
+  },{
+	  "name":"Punycode域名加密xn--",
+	  "url":"https://www.punycoder.com",
+	  "tags":["域名加密","xn--加密","汉子域名加密"]
+  },{
+	  "name":"回溯机",
+	  "url":"https://web.archive.org",
+	  "tags":["网站历史","回溯机","更新足迹"]
+  },
+  
+  
+  
+  
+  
+  //免费收录网站
+  {
+	  "name":"爱有站长链",
+	  "url":"https://aiyouzz.com/",
+	  "tags":["爱有站长链","免费收录网站"]
   }
 ];
