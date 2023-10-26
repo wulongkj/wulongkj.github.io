@@ -51,6 +51,10 @@ var data = [
 	  "url":"https://accounts.google.com/b/0/AddMailService",
 	  "tags":["谷歌邮箱","美国"]
   },{
+	  "name":"10分钟邮箱",
+	  "url":"https://10minutemail.org/",
+	  "tags":["10分钟邮箱"]
+  },{
 	  "name":"vivo官网",
 	  "url":"https://www.vivo.com.cn/service/authenticityCheck/index",
 	  "tags":["vivo官网","中国"]
@@ -117,5 +121,9 @@ var data = [
 	  "name":"爱有站长链",
 	  "url":"https://aiyouzz.com/",
 	  "tags":["爱有站长链","免费收录网站"]
+  },{
+	  "name":"收录网站",
+	  "url":"https://399q.cn",
+	  "tags":["收录网站","免费收录网站"]
   }
 ];

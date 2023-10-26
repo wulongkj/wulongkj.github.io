@@ -60,6 +60,7 @@
       data.forEach(function(item) {
         var link = document.createElement("a");
         link.href = item.url;
+		link.target="_lank";
         link.textContent = item.name;
         navigation.appendChild(link);
       });
