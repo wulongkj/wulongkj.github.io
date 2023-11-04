@@ -110,20 +110,31 @@ var data = [
 	  "name":"回溯机",
 	  "url":"https://web.archive.org",
 	  "tags":["网站历史","回溯机","更新足迹"]
+  },{
+	  "name":"夸克网盘",
+	  "url":"https://pan.myquark.cn/",
+	  "tags":["免费夸克网盘","免费在线网盘","免费网盘"]
+  },{
+	  "name":"作图网",
+	  "url":"http://zuotu.399q.cn",
+	  "tags":["在线免费制作广告图片","在线制作广告横幅","在线制作广告店标","在线制作广告LOGO"]
+  },{
+	  "name":"api小白",
+	  "url":"https://apixb.github.io",
+	  "tags":["api小白","apixb","免费静态接口"]
   },
   
-  
-  
-  
-  
-  //免费收录网站
+  //自动收录网
   {
-	  "name":"爱有站长链",
-	  "url":"https://aiyouzz.com/",
-	  "tags":["爱有站长链","免费收录网站"]
+	  "name":"全收录",
+	  "url":"https://www.7me4.com",
+	  "tags":["网站免费在线收录","免费收录"]
   },{
-	  "name":"收录网站",
-	  "url":"https://399q.cn",
-	  "tags":["收录网站","免费收录网站"]
+	  "name":"自动秒收录",
+	  "url":"https://hyml1688.cn/",
+	  "tags":["网站免费在线收录","免费收录","自动秒收录"]
   }
+  
+  
+  
 ];
