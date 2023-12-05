@@ -2,6 +2,7 @@
 document.title="乌龙导航";
 // JSON数据
 var data = [
+  //搜索引擎
   {
     "name": "小白网",
     "url": "https://xiaobainet.github.io",
@@ -22,18 +23,20 @@ var data = [
     "name": "导航网站",
     "url": "http://wulongkj.github.io",
     "tags": ["导航", "导航网站","中国"]
-  },{
+  },
+  //网盘
+  {
 	"name":"MediaFire",
 	"url":"https://mediafire.com",
 	"tags":["MediaFire","网盘","美国","免费"]
   },{
+	  "name":"夸克网盘",
+	  "url":"https://pan.myquark.cn/",
+	  "tags":["免费夸克网盘","免费在线网盘","免费网盘"]
+  },{
 	"name":"文叔叔",
 	"url":"https://www.wenshushu.cn",
 	"tags":["文叔叔","网盘","中国","免费","文件分享"]
-  },{
-	  "name":"Temp Mail",
-	  "url":"https://etempmail.com/zh",
-	  "tags":["临时邮箱","临时","邮箱","mail"]
   },{
 	  "name":"百度翻译",
 	  "url":"https://fanyi.baidu.com",
@@ -46,7 +49,9 @@ var data = [
 	  "name":"谷歌地图",
 	  "url":"https://maps.google.com",
 	  "tags":["谷歌地图","地图","谷歌","美国"]
-  },{
+  },
+  //邮箱	
+  {
 	  "name":"谷歌邮箱",
 	  "url":"https://accounts.google.com/b/0/AddMailService",
 	  "tags":["谷歌邮箱","美国"]
@@ -54,6 +59,10 @@ var data = [
 	  "name":"10分钟邮箱",
 	  "url":"https://10minutemail.org/",
 	  "tags":["10分钟邮箱"]
+  },{
+	  "name":"Temp Mail",
+	  "url":"https://etempmail.com/zh",
+	  "tags":["临时邮箱","临时","邮箱","mail"]
   },{
 	  "name":"vivo官网",
 	  "url":"https://www.vivo.com.cn/service/authenticityCheck/index",
@@ -111,10 +120,6 @@ var data = [
 	  "url":"https://web.archive.org",
 	  "tags":["网站历史","回溯机","更新足迹"]
   },{
-	  "name":"夸克网盘",
-	  "url":"https://pan.myquark.cn/",
-	  "tags":["免费夸克网盘","免费在线网盘","免费网盘"]
-  },{
 	  "name":"作图网",
 	  "url":"http://zuotu.399q.cn",
 	  "tags":["在线免费制作广告图片","在线制作广告横幅","在线制作广告店标","在线制作广告LOGO"]
@@ -126,13 +131,9 @@ var data = [
   
   //自动收录网
   {
-	  "name":"全收录",
-	  "url":"https://www.7me4.com",
-	  "tags":["网站免费在线收录","免费收录"]
-  },{
-	  "name":"自动秒收录",
-	  "url":"https://hyml1688.cn/",
-	  "tags":["网站免费在线收录","免费收录","自动秒收录"]
+	  "name":"魔司收录网",
+	  "url":"https://msdhw.cn",
+	  "tags":["网站免费在线收录","免费收录","魔司收录网"]
   }
   
   
