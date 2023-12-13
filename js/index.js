@@ -42,10 +42,6 @@ var data = [
 	  "url":"https://fanyi.baidu.com",
 	  "tags":["百度翻译","翻译","中国"]
   },{
-	  "name":"大巫",
-	  "url":"https://dawu.world",
-	  "tags":["免费openAi","免费","AI"]
-  },{
 	  "name":"谷歌地图",
 	  "url":"https://maps.google.com",
 	  "tags":["谷歌地图","地图","谷歌","美国"]
@@ -128,7 +124,16 @@ var data = [
 	  "url":"https://apixb.github.io",
 	  "tags":["api小白","apixb","免费静态接口"]
   },
-  
+  //AI 人工智能
+  {
+	  "name":"灵鹿",
+	  "url":"https://linglu.pro",
+	  "tags":["免费Ai","免费","AI","灵鹿linglu"]
+  },{
+	  "name":"大巫",
+	  "url":"https://dawu.world",
+	  "tags":["免费openAi","免费","AI"]
+  },
   //自动收录网
   {
 	  "name":"魔司收录网",
