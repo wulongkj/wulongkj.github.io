@@ -59,6 +59,18 @@ var data = [
 	  "name":"Temp Mail",
 	  "url":"https://etempmail.com/zh",
 	  "tags":["临时邮箱","临时","邮箱","mail"]
+  },
+  //在线学习
+  {
+	  "name":"freecodecamp",
+	  "url":"https://www.freecodecamp.org/chinese",
+	  "tags":["在线免费学习编程","优秀github项目"]
+  },
+	
+  {
+	  "name":"w3counter",
+	  "url":"https://www.w3counter.com/signup",
+	  "tags":["w3counter","免费网络统计和工具","免费站长统计"]
   },{
 	  "name":"vivo官网",
 	  "url":"https://www.vivo.com.cn/service/authenticityCheck/index",
@@ -71,10 +83,6 @@ var data = [
 	  "name":"路人侠二级域名分发",
 	  "url":"https://ilun.link/login",
 	  "tags":["免费二级域名","测试域名","中国"]
-  },{
-	  "name":"w3counter",
-	  "url":"https://www.w3counter.com/signup",
-	  "tags":["w3counter","免费网络统计和工具","免费站长统计"]
   },{
 	  "name":"GMO积分",
 	  "url":"https://point.gmo.jp",
