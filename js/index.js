@@ -120,9 +120,13 @@ var data = [
 	  "url":"http://wryxmq.com",
 	  "tags":["影子vip免费解析vip视频"]
   },{
-	  "name":"Punycode域名加密xn--",
-	  "url":"https://www.punycoder.com",
+	  "name":"Punycode域名加密/解密xn--",
+	  "url":"https://tool.ip138.com/punycode",
 	  "tags":["域名加密","xn--加密","汉子域名加密"]
+  },{
+	  "name":"Base64加密/解密",
+	  "url":"https://www.bt.cn/tools/encrybase.html",
+	  "tags":["在线加密","在线解密","加密解密"]
   },{
 	  "name":"回溯机",
 	  "url":"https://web.archive.org",
