@@ -123,6 +123,16 @@ var data = [
 	  "name":"Punycode域名加密/解密xn--",
 	  "url":"https://tool.ip138.com/punycode",
 	  "tags":["域名加密","xn--加密","汉子域名加密"]
+  },
+  //工具
+  {
+	  "name":"独特工具箱",
+	  "url":"https://www.dute.org",
+	  "tags":["免费在线工具"]
+  },{
+	  "name":"站长工具箱",
+	  "url":"https://www.gongjuhao.com",
+	  "tags":["免费在线工具"]
   },{
 	  "name":"Base64加密/解密",
 	  "url":"https://www.bt.cn/tools/encrybase.html",
