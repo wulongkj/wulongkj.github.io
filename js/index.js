@@ -70,7 +70,7 @@ var data = [
 	  "url":"https://www.runoob.com",
 	  "tags":["在线免费学习编程","runoob"]
   },
-	
+  //其他
   {
 	  "name":"w3counter",
 	  "url":"https://www.w3counter.com/signup",
@@ -116,10 +116,6 @@ var data = [
 	  "url":"https://coinfola.com",
 	  "tags":["Coinfola在线赚钱比特币","虚拟币"]
   },{
-	  "name":"影子vip",
-	  "url":"http://wryxmq.com",
-	  "tags":["影子vip免费解析vip视频"]
-  },{
 	  "name":"Punycode域名加密/解密xn--",
 	  "url":"https://tool.ip138.com/punycode",
 	  "tags":["域名加密","xn--加密","汉子域名加密"]
@@ -149,6 +145,10 @@ var data = [
 	  "name":"api小白",
 	  "url":"https://apixb.github.io",
 	  "tags":["api小白","apixb","免费静态接口"]
+  },{
+	  "name":"docsmall",
+	  "url":"https://docsmall.com",
+	  "tags":["免费在线图片压缩","GIF压缩","PDF合并/分割"]
   },
   //AI 人工智能
   {
@@ -160,11 +160,22 @@ var data = [
 	  "url":"https://dawu.world",
 	  "tags":["免费openAi","免费","AI"]
   },
-  //自动收录网
+  //免费api
   {
-	  "name":"魔司收录网",
-	  "url":"https://msdhw.cn",
-	  "tags":["网站免费在线收录","免费收录","魔司收录网"]
+	  "name":"新逸网络",
+	  "url":"https://www.xinac.net",
+	  "tags":["免费api","新逸网络"]
+  },
+
+  //解析下载
+  {
+	  "name":"全网视频解析下载",
+	  "url":"http://678wk7.icu",
+	  "tags":["全网视频解析下载","抖音免费解析下载","快手免费解析下载","YOUTUBE免费解析下载"]
+  },{
+	  "name":"易简单解析",
+	  "url":"https://www.xs0574.cn",
+	  "tags":["抖音免费解析下载","快手免费解析下载","YOUTUBE免费解析下载"]
   }
   
   
