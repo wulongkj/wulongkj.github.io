@@ -75,7 +75,9 @@ var data = [
 	  "name":"w3counter",
 	  "url":"https://www.w3counter.com/signup",
 	  "tags":["w3counter","免费网络统计和工具","免费站长统计"]
-  },{
+  },
+  //手机官网
+  {
 	  "name":"vivo官网",
 	  "url":"https://www.vivo.com.cn/service/authenticityCheck/index",
 	  "tags":["vivo官网","中国"]
@@ -83,19 +85,21 @@ var data = [
 	  "name":"oppo官网",
 	  "url":"https://support.oppo.com/cn/check",
 	  "tags":["oppo官网","中国"]
-  },{
+  },
+  //免费二级域名	
+  {
 	  "name":"路人侠二级域名分发",
 	  "url":"https://ilun.link/login",
 	  "tags":["免费二级域名","测试域名","中国"]
-  },{
-	  "name":"GMO积分",
-	  "url":"https://point.gmo.jp",
-	  "tags":["日本问卷调查","免费赚日元"]
-  },{
+  },
+  //域名注册
+  {
 	  "name":"onamae",
 	  "url":"https://www.onamae.com",
 	  "tags":["日本域名注册商","GMO积分","注册域名"]
-  },{
+  },
+  //钱包	
+  {
 	  "name":"payeer",
 	  "url":"https://payeer.com/cn/",
 	  "tags":["多国家电子钱包","payeer钱包"]
@@ -103,6 +107,12 @@ var data = [
 	  "name":"faucetpay",
 	  "url":"https://faucetpay.io/account/login",
 	  "tags":["faucetpay(水龙头钱包)多虚拟币钱包"]
+  },
+  //赚钱
+  {
+	  "name":"GMO积分",
+	  "url":"https://point.gmo.jp",
+	  "tags":["日本问卷调查","免费赚日元"]
   },{
 	  "name":"gemly",
 	  "url":"https://gemly.gg",
@@ -115,16 +125,16 @@ var data = [
 	  "name":"Coinfola",
 	  "url":"https://coinfola.com",
 	  "tags":["Coinfola在线赚钱比特币","虚拟币"]
-  },{
-	  "name":"Punycode域名加密/解密xn--",
-	  "url":"https://tool.ip138.com/punycode",
-	  "tags":["域名加密","xn--加密","汉子域名加密"]
   },
   //工具
   {
 	  "name":"独特工具箱",
 	  "url":"https://www.dute.org",
 	  "tags":["免费在线工具"]
+  },{
+	  "name":"Punycode域名加密/解密xn--",
+	  "url":"https://tool.ip138.com/punycode",
+	  "tags":["域名加密","xn--加密","汉子域名加密"]
   },{
 	  "name":"站长工具箱",
 	  "url":"https://www.gongjuhao.com",
