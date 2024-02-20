@@ -24,6 +24,12 @@ var data = [
     "url": "http://wulongkj.github.io",
     "tags": ["导航", "导航网站","中国"]
   },
+  //导航网站
+  {
+	"name":"自媒体库-新媒体导航",
+	"url":"https://hao.rzfyu.com/1/",
+	"tags":["自媒体库","新媒体导航","文案版","素材版","平台版","运营版","摸鱼版","无惗","无念"]
+  },
   //网盘
   {
 	"name":"MediaFire",
