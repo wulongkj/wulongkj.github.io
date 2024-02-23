@@ -192,6 +192,24 @@ var data = [
 	  "name":"易简单解析",
 	  "url":"https://www.xs0574.cn",
 	  "tags":["抖音免费解析下载","快手免费解析下载","YOUTUBE免费解析下载"]
+  },
+  //二维码美化
+  {
+	  "name":"96编辑器",
+	  "url":"https://bj.96weixin.com/tools/meihua",
+	  "tags":["免费二维码美化","在线美化二维码","个性二维码"]
+  },{
+	  "name":"美化码",
+	  "url":"https://www.meihuama.com",
+	  "tags":["免费二维码美化","在线美化二维码","个性二维码","二维码创意工坊","艺术让生活更精彩"]
+  },{
+	  "name":"帮小忙",
+	  "url":"https://tool.browser.qq.com/prettify_qrcode.html?addressbar=hide",
+	  "tags":["免费二维码美化","在线美化二维码","个性二维码","腾讯QQ浏览器工具箱","轻松办公，工具助你一臂之力"]
+  },{
+	  "name":"第九工厂(推荐)",
+	  "url":"https://909th.com?code=A30119",
+	  "tags":["免费二维码美化","在线美化二维码","个性二维码","AI二维码生成","艺术二维码模板交易","限免二维码美化"]
   }
   
   
