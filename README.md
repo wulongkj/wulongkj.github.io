@@ -22,4 +22,21 @@ document.title="乌龙导航"; //将等号后面的内容改成你需要的内�
   }
 ```
 
+### 二、修改公告及控制台显示
+修改文件: ./Notice/index.js
+#### 1.修改控制台显示
+```js
+    //推广个人更多网站提高业内知名度
+    console.group("二开作者、优化及运营");
+    	console.log("wryxmq(马猩猿)");
+    	console.log("http://wryxmq.com");
+    	console.log("http://wulongkj.github.io");
+    console.groupEnd();
+```
+
+#### 2.修改公告
+```js
+    
+```
+
 
