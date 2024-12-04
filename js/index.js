@@ -138,6 +138,10 @@ var data = [
   },
   //工具
   {
+	  "name":"彩虹工具网",
+	  "url":"https://tool.cccyun.cc/viewhtml",
+	  "tags":["免费在线工具","网页源码查看"]
+  },{
 	  "name":"独特工具箱",
 	  "url":"https://www.dute.org",
 	  "tags":["免费在线工具"]
