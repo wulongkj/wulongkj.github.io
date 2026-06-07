@@ -515,23 +515,20 @@
 		const DATA_URL = './config/navigation.json';
 		const AUTH_API = './api/auth';
 		let navigationData = [];
+		const LOGIN_KEY = 'wulong_admin_logged_in';
+		const PASSWORD_KEY = 'wulong_admin_password';
 
 		checkAuth();
 
 		function checkAuth() {
-			fetch(AUTH_API + '/check', { credentials: 'same-origin' })
-				.then(res => res.json())
-				.then(res => {
-					if (res.success) {
-						isLoggedIn = true;
-						document.getElementById('loginOverlay').classList.add('hidden');
-						document.getElementById('mainContent').classList.remove('hidden');
-						loadItems();
-					} else {
-						showLogin();
-					}
-				})
-				.catch(() => showLogin());
+			const isLoggedIn = localStorage.getItem(LOGIN_KEY) === 'true';
+			if (isLoggedIn) {
+				document.getElementById('loginOverlay').classList.add('hidden');
+				document.getElementById('mainContent').classList.remove('hidden');
+				loadItems();
+			} else {
+				showLogin();
+			}
 		}
 
 		function showLogin() {
@@ -557,12 +554,13 @@
 			fetch(AUTH_API + '/login', {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
-				credentials: 'same-origin',
 				body: JSON.stringify({ password })
 			})
 			.then(res => res.json())
 			.then(res => {
 				if (res.success) {
+					localStorage.setItem(LOGIN_KEY, 'true');
+					localStorage.setItem(PASSWORD_KEY, password);
 					document.getElementById('loginOverlay').classList.add('hidden');
 					document.getElementById('mainContent').classList.remove('hidden');
 					document.getElementById('loginPassword').value = '';
@@ -622,8 +620,7 @@
 			fetch(AUTH_API + '/whitelist', {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
-				credentials: 'same-origin',
-				body: JSON.stringify({ ip })
+				body: JSON.stringify({ ip, password: localStorage.getItem(PASSWORD_KEY) })
 			})
 			.then(res => res.json())
 			.then(res => {
@@ -642,8 +639,7 @@
 			fetch(AUTH_API + '/whitelist', {
 				method: 'DELETE',
 				headers: { 'Content-Type': 'application/json' },
-				credentials: 'same-origin',
-				body: JSON.stringify({ ip })
+				body: JSON.stringify({ ip, password: localStorage.getItem(PASSWORD_KEY) })
 			})
 			.then(res => res.json())
 			.then(res => {
@@ -661,8 +657,7 @@
 			fetch(AUTH_API + '/password', {
 				method: 'PUT',
 				headers: { 'Content-Type': 'application/json' },
-				credentials: 'same-origin',
-				body: JSON.stringify({ currentPassword, newPassword })
+				body: JSON.stringify({ currentPassword, newPassword, password: localStorage.getItem(PASSWORD_KEY) })
 			})
 			.then(res => res.json())
 			.then(res => {
@@ -672,7 +667,8 @@
 					document.getElementById('newPassword').value = '';
 					document.getElementById('confirmPassword').value = '';
 					setTimeout(() => {
-						fetch(AUTH_API + '/logout', { credentials: 'same-origin' });
+						localStorage.removeItem(LOGIN_KEY);
+						localStorage.removeItem(PASSWORD_KEY);
 						showLogin();
 					}, 1500);
 				} else {
@@ -754,8 +750,7 @@
 			fetch('./api/save', {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
-				credentials: 'same-origin',
-				body: JSON.stringify(navigationData)
+				body: JSON.stringify({ data: navigationData, password: localStorage.getItem(PASSWORD_KEY) })
 			})
 			.then(res => res.json())
 			.then(res => {
