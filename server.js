@@ -19,8 +19,7 @@ function loadConfig() {
         return JSON.parse(fs.readFileSync(configFile, 'utf-8'));
     }
     const defaultConfig = {
-        password: hashPassword('admin123'),
-        whitelist: ['127.0.0.1', '::1']
+        password: hashPassword('admin123')
     };
     saveConfig(defaultConfig);
     return defaultConfig;
@@ -61,54 +60,6 @@ app.post('/api/auth/login', (req, res) => {
 
 app.get('/api/auth/ip', (req, res) => {
     res.json({ ip: req.ip || req.connection.remoteAddress || '' });
-});
-
-app.get('/api/auth/whitelist', (req, res) => {
-    const { password } = req.query;
-    const config = loadConfig();
-    if (!verifyPassword(password, config)) {
-        return res.status(401).json({ success: false, error: '未授权' });
-    }
-    res.json({ success: true, ips: config.whitelist });
-});
-
-app.post('/api/auth/whitelist', (req, res) => {
-    try {
-        const { ip, password } = req.body;
-        const config = loadConfig();
-        if (!verifyPassword(password, config)) {
-            return res.status(401).json({ success: false, error: '未授权' });
-        }
-        if (!ip) return res.status(400).json({ success: false, error: '请输入 IP' });
-        if (config.whitelist.includes(ip)) {
-            return res.status(400).json({ success: false, error: 'IP 已存在' });
-        }
-        config.whitelist.push(ip);
-        saveConfig(config);
-        res.json({ success: true });
-    } catch (error) {
-        res.status(500).json({ success: false, error: error.message });
-    }
-});
-
-app.delete('/api/auth/whitelist', (req, res) => {
-    try {
-        const { ip, password } = req.body;
-        const config = loadConfig();
-        if (!verifyPassword(password, config)) {
-            return res.status(401).json({ success: false, error: '未授权' });
-        }
-        if (!ip) return res.status(400).json({ success: false, error: '请输入 IP' });
-        const index = config.whitelist.indexOf(ip);
-        if (index === -1) {
-            return res.status(404).json({ success: false, error: 'IP 不存在' });
-        }
-        config.whitelist.splice(index, 1);
-        saveConfig(config);
-        res.json({ success: true });
-    } catch (error) {
-        res.status(500).json({ success: false, error: error.message });
-    }
 });
 
 app.put('/api/auth/password', (req, res) => {

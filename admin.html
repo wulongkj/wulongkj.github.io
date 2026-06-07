@@ -321,51 +321,6 @@
 			color: #333;
 			margin-bottom: 20px;
 		}
-		.ip-list {
-			display: flex;
-			flex-wrap: wrap;
-			gap: 10px;
-			margin-bottom: 15px;
-		}
-		.ip-tag {
-			background: #f0f0f0;
-			padding: 8px 15px;
-			border-radius: 20px;
-			font-size: 13px;
-			display: flex;
-			align-items: center;
-			gap: 8px;
-		}
-		.ip-tag button {
-			background: #ff4444;
-			color: white;
-			border: none;
-			border-radius: 50%;
-			width: 20px;
-			height: 20px;
-			font-size: 12px;
-			cursor: pointer;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			font-family: 'DouyinSansBold', sans-serif !important;
-		}
-		.ip-input-group {
-			display: flex;
-			gap: 10px;
-		}
-		.ip-input-group input {
-			flex: 1;
-			padding: 10px 15px;
-			border: 2px solid #e0e0e0;
-			border-radius: 8px;
-			font-size: 14px;
-			font-family: 'DouyinSansBold', sans-serif !important;
-		}
-		.ip-input-group input:focus {
-			outline: none;
-			border-color: #667eea;
-		}
 		.tab-container { margin-bottom: 20px; }
 		.tab-buttons {
 			display: flex;
@@ -401,7 +356,6 @@
 		}
 		@media (max-width: 480px) {
 			.login-box { padding: 30px 20px; }
-			.ip-input-group { flex-direction: column; }
 			.tab-buttons { flex-direction: column; }
 		}
 	</style>
@@ -469,16 +423,6 @@
 							<button type="submit">修改密码</button>
 						</div>
 					</form>
-				</div>
-
-				<div class="settings-panel">
-					<h3>IP 白名单</h3>
-					<p style="color: #666; margin-bottom: 20px;">当前 IP: <span id="currentIp" style="color: #667eea; font-weight: bold;">加载中...</span></p>
-					<div class="ip-list" id="ipList"></div>
-					<div class="ip-input-group">
-						<input type="text" id="newIp" placeholder="输入要添加的 IP 地址">
-						<button class="btn btn-primary" onclick="addIp()" style="flex: 0 0 auto;">添加 IP</button>
-					</div>
 				</div>
 			</div>
 		</div>
@@ -585,67 +529,6 @@
 			document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
 			event.target.classList.add('active');
 			document.getElementById(tab + 'Tab').classList.add('active');
-			if (tab === 'settings') {
-				loadCurrentIp();
-				loadIpList();
-			}
-		}
-
-		function loadCurrentIp() {
-			fetch(AUTH_API + '/ip')
-				.then(res => res.json())
-				.then(res => { document.getElementById('currentIp').textContent = res.ip || '未知'; });
-		}
-
-		function loadIpList() {
-			fetch(AUTH_API + '/whitelist')
-				.then(res => res.json())
-				.then(res => {
-					if (res.success) {
-						const ipList = document.getElementById('ipList');
-						ipList.innerHTML = '';
-						(res.ips || []).forEach(ip => {
-							const tag = document.createElement('div');
-							tag.className = 'ip-tag';
-							tag.innerHTML = `<span>${ip}</span><button onclick="removeIp('${ip}')">×</button>`;
-							ipList.appendChild(tag);
-						});
-					}
-				});
-		}
-
-		function addIp() {
-			const ip = document.getElementById('newIp').value.trim();
-			if (!ip) { showToast('请输入 IP 地址', 'error'); return; }
-			fetch(AUTH_API + '/whitelist', {
-				method: 'POST',
-				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify({ ip, password: localStorage.getItem(PASSWORD_KEY) })
-			})
-			.then(res => res.json())
-			.then(res => {
-				if (res.success) {
-					showToast('IP 添加成功', 'success');
-					document.getElementById('newIp').value = '';
-					loadIpList();
-				} else {
-					showToast(res.error, 'error');
-				}
-			});
-		}
-
-		function removeIp(ip) {
-			if (!confirm(`确定要移除 IP ${ip} 吗？`)) return;
-			fetch(AUTH_API + '/whitelist', {
-				method: 'DELETE',
-				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify({ ip, password: localStorage.getItem(PASSWORD_KEY) })
-			})
-			.then(res => res.json())
-			.then(res => {
-				if (res.success) { showToast('IP 移除成功', 'success'); loadIpList(); }
-				else { showToast(res.error, 'error'); }
-			});
 		}
 
 		document.getElementById('passwordForm').addEventListener('submit', function(e) {
