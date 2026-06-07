@@ -648,11 +648,6 @@
 			navigationData.splice(index, 1);
 			saveData('删除成功');
 		}
-			.then(res => {
-				if (res.success) { showToast('删除成功', 'success'); loadItems(); }
-				else { showToast('删除失败', 'error'); }
-			});
-		}
 
 		function showToast(message, type) {
 			const toast = document.getElementById('toast');
