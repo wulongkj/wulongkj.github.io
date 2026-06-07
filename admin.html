@@ -495,12 +495,20 @@
 			errorDiv.classList.remove('show');
 			inputEl.classList.remove('error');
 			
+			const btn = document.querySelector('.login-box button');
+			btn.textContent = '登录中...';
+			btn.disabled = true;
+			
 			fetch(AUTH_API + '/login', {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
 				body: JSON.stringify({ password })
 			})
-			.then(res => res.json())
+			.then(res => {
+				btn.textContent = '登录';
+				btn.disabled = false;
+				return res.json();
+			})
 			.then(res => {
 				if (res.success) {
 					localStorage.setItem(LOGIN_KEY, 'true');
@@ -518,6 +526,8 @@
 				}
 			})
 			.catch(err => {
+				btn.textContent = '登录';
+				btn.disabled = false;
 				errorDiv.textContent = '登录失败，请重试';
 				errorDiv.classList.add('show');
 				inputEl.classList.add('error');
