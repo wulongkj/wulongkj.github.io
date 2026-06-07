@@ -1,14 +1,13 @@
 document.title = "乌龙导航";
-const API_URL = './api/navigation';
+const DATA_URL = './config/navigation.json';
 let data = [];
 
 function loadData() {
     return new Promise((resolve) => {
-        fetch(API_URL)
+        fetch(DATA_URL)
             .then(res => res.json())
             .then(res => {
-                if (res.success) data = res.data;
-                else loadFallback();
+                data = res || [];
                 resolve(data);
             })
             .catch(() => { loadFallback(); resolve(data); });

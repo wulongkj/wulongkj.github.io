@@ -48,95 +48,12 @@ function hashPassword(password) {
     return crypto.createHash('sha256').update(password).digest('hex');
 }
 
-function loadNavigation() {
-    if (fs.existsSync(navigationFile)) {
-        return JSON.parse(fs.readFileSync(navigationFile, 'utf-8'));
-    }
-    return [];
-}
-
-function saveNavigation(data) {
-    if (!fs.existsSync(configDir)) {
-        fs.mkdirSync(configDir, { recursive: true });
-    }
-    fs.writeFileSync(navigationFile, JSON.stringify(data, null, 2), 'utf-8');
-}
-
 function checkAuth(req, res, next) {
     if (!req.session || !req.session.loggedIn) {
         return res.status(401).json({ success: false, error: '未授权访问' });
     }
     next();
 }
-
-function checkIp(req, res, next) {
-    const config = loadConfig();
-    const clientIp = req.ip || req.connection.remoteAddress || '';
-    const ip = clientIp.split(':').pop();
-    
-    if (!config.whitelist.includes(clientIp) && !config.whitelist.includes(ip)) {
-        return res.status(403).json({ success: false, error: 'IP 不在白名单' });
-    }
-    next();
-}
-
-app.get('/api/navigation', (req, res) => {
-    try {
-        res.json({ success: true, data: loadNavigation() });
-    } catch (error) {
-        res.status(500).json({ success: false, error: error.message });
-    }
-});
-
-app.post('/api/navigation', checkAuth, (req, res) => {
-    try {
-        const { name, url, tags } = req.body;
-        if (!name || !url) {
-            return res.status(400).json({ success: false, error: '缺少 name, url' });
-        }
-        const data = loadNavigation();
-        const item = { name, url, tags: tags || [] };
-        data.push(item);
-        saveNavigation(data);
-        res.json({ success: true, data: item, message: '添加成功' });
-    } catch (error) {
-        res.status(500).json({ success: false, error: error.message });
-    }
-});
-
-app.put('/api/navigation/:index', checkAuth, (req, res) => {
-    try {
-        const index = parseInt(req.params.index);
-        const { name, url, tags } = req.body;
-        if (!name || !url) {
-            return res.status(400).json({ success: false, error: '缺少 name, url' });
-        }
-        const data = loadNavigation();
-        if (index < 0 || index >= data.length) {
-            return res.status(404).json({ success: false, error: '索引不存在' });
-        }
-        data[index] = { name, url, tags: tags || [] };
-        saveNavigation(data);
-        res.json({ success: true, data: data[index], message: '更新成功' });
-    } catch (error) {
-        res.status(500).json({ success: false, error: error.message });
-    }
-});
-
-app.delete('/api/navigation/:index', checkAuth, (req, res) => {
-    try {
-        const index = parseInt(req.params.index);
-        const data = loadNavigation();
-        if (index < 0 || index >= data.length) {
-            return res.status(404).json({ success: false, error: '索引不存在' });
-        }
-        const deleted = data.splice(index, 1);
-        saveNavigation(data);
-        res.json({ success: true, data: deleted[0], message: '删除成功' });
-    } catch (error) {
-        res.status(500).json({ success: false, error: error.message });
-    }
-});
 
 app.get('/api/auth/check', (req, res) => {
     res.json({ success: !!(req.session && req.session.loggedIn) });
@@ -150,10 +67,8 @@ app.post('/api/auth/login', (req, res) => {
         }
         const config = loadConfig();
         if (hashPassword(password) === config.password) {
-            checkIp(req, res, () => {
-                req.session.loggedIn = true;
-                res.json({ success: true, message: '登录成功' });
-            });
+            req.session.loggedIn = true;
+            res.json({ success: true, message: '登录成功' });
         } else {
             res.status(401).json({ success: false, error: '密码错误' });
         }
@@ -224,6 +139,19 @@ app.put('/api/auth/password', checkAuth, (req, res) => {
         config.password = hashPassword(newPassword);
         saveConfig(config);
         res.json({ success: true, message: '密码已修改' });
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+    }
+});
+
+app.post('/api/save', checkAuth, (req, res) => {
+    try {
+        const data = req.body;
+        if (!Array.isArray(data)) {
+            return res.status(400).json({ success: false, error: '数据格式错误' });
+        }
+        fs.writeFileSync(navigationFile, JSON.stringify(data, null, 2), 'utf-8');
+        res.json({ success: true });
     } catch (error) {
         res.status(500).json({ success: false, error: error.message });
     }

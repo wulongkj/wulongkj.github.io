@@ -512,7 +512,7 @@
 	<div class="toast" id="toast"></div>
 
 	<script>
-		const API_URL = './api/navigation';
+		const DATA_URL = './config/navigation.json';
 		const AUTH_API = './api/auth';
 		let navigationData = [];
 
@@ -682,11 +682,11 @@
 		});
 
 		function loadItems() {
-			fetch(API_URL)
+			fetch(DATA_URL)
 				.then(res => res.json())
 				.then(res => {
-					if (res.success) { navigationData = res.data; renderItems(); }
-					else { showToast('加载失败', 'error'); }
+					navigationData = res || [];
+					renderItems();
 				})
 				.catch(err => showToast('加载失败', 'error'));
 		}
@@ -742,40 +742,34 @@
 			if (!item.name || !item.url) { showToast('名称和 URL 不能为空', 'error'); return; }
 
 			if (index === '') {
-				fetch(API_URL, {
-					method: 'POST',
-					headers: { 'Content-Type': 'application/json' },
-					credentials: 'same-origin',
-					body: JSON.stringify(item)
-				})
-				.then(res => res.json())
-				.then(res => {
-					if (res.success) { showToast('添加成功', 'success'); closeModal(); loadItems(); }
-					else { showToast('添加失败', 'error'); }
-				});
+				navigationData.push(item);
+				saveData('添加成功');
 			} else {
-				fetch(API_URL + '/' + index, {
-					method: 'PUT',
-					headers: { 'Content-Type': 'application/json' },
-					credentials: 'same-origin',
-					body: JSON.stringify(item)
-				})
-				.then(res => res.json())
-				.then(res => {
-					if (res.success) { showToast('更新成功', 'success'); closeModal(); loadItems(); }
-					else { showToast('更新失败', 'error'); }
-				});
+				navigationData[index] = item;
+				saveData('更新成功');
 			}
 		});
 
-		function deleteItem(index) {
-			if (!confirm('确定要删除这个导航吗？')) return;
-			fetch(API_URL + '/' + index, {
-				method: 'DELETE',
+		function saveData(message) {
+			fetch('./api/save', {
+				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
-				credentials: 'same-origin'
+				credentials: 'same-origin',
+				body: JSON.stringify(navigationData)
 			})
 			.then(res => res.json())
+			.then(res => {
+				if (res.success) { showToast(message, 'success'); closeModal(); loadItems(); }
+				else { showToast('保存失败', 'error'); }
+			})
+			.catch(() => showToast('保存失败', 'error'));
+		}
+
+		function deleteItem(index) {
+			if (!confirm('确定要删除这个导航吗？')) return;
+			navigationData.splice(index, 1);
+			saveData('删除成功');
+		}
 			.then(res => {
 				if (res.success) { showToast('删除成功', 'success'); loadItems(); }
 				else { showToast('删除失败', 'error'); }
