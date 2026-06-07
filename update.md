@@ -7,6 +7,11 @@
 - admin.html 数据操作简化为保存到 config/navigation.json
 - server.js 大幅精简，移除冗余 API，只保留登录认证和数据保存接口
 
+### 静态化改造
+- 改造为纯静态版本，可部署到 GitHub Pages
+- admin.html 登录验证改为本地验证（localStorage）
+- 数据修改改为下载 JSON 文件方式，需手动替换 config/navigation.json
+
 ### Bug 修复
 - 修复 admin.html 页面数据列表中 URL 和标签超出显示范围的问题
 - 修复 index.html 导航链接内容溢出显示问题

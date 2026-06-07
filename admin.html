@@ -242,7 +242,7 @@
 			align-items: center;
 			z-index: 3000;
 		}
-	.login-box {
+		.login-box {
 			background: white;
 			padding: 40px;
 			border-radius: 20px;
@@ -457,10 +457,11 @@
 
 	<script>
 		const DATA_URL = './config/navigation.json';
-		const AUTH_API = './api/auth';
 		let navigationData = [];
 		const LOGIN_KEY = 'wulong_admin_logged_in';
 		const PASSWORD_KEY = 'wulong_admin_password';
+		const PASSWORD_HASH_KEY = 'wulong_admin_password_hash';
+		const DEFAULT_PASSWORD = '240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9';
 
 		checkAuth();
 
@@ -499,39 +500,39 @@
 			btn.textContent = '登录中...';
 			btn.disabled = true;
 			
-			fetch(AUTH_API + '/login', {
-				method: 'POST',
-				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify({ password })
-			})
-			.then(res => {
-				btn.textContent = '登录';
-				btn.disabled = false;
-				return res.json();
-			})
-			.then(res => {
-				if (res.success) {
+			setTimeout(() => {
+				const storedHash = localStorage.getItem(PASSWORD_HASH_KEY) || DEFAULT_PASSWORD;
+				const inputHash = simpleHash(password);
+				
+				if (inputHash === storedHash) {
 					localStorage.setItem(LOGIN_KEY, 'true');
 					localStorage.setItem(PASSWORD_KEY, password);
 					document.getElementById('loginOverlay').classList.add('hidden');
 					document.getElementById('mainContent').classList.remove('hidden');
 					document.getElementById('loginPassword').value = '';
+					btn.textContent = '登录';
+					btn.disabled = false;
 					loadItems();
 					showToast('登录成功', 'success');
 				} else {
-					errorDiv.textContent = res.error || '密码错误';
+					btn.textContent = '登录';
+					btn.disabled = false;
+					errorDiv.textContent = '密码错误';
 					errorDiv.classList.add('show');
 					inputEl.classList.add('error');
 					inputEl.select();
 				}
-			})
-			.catch(err => {
-				btn.textContent = '登录';
-				btn.disabled = false;
-				errorDiv.textContent = '登录失败，请重试';
-				errorDiv.classList.add('show');
-				inputEl.classList.add('error');
-			});
+			}, 500);
+		}
+
+		function simpleHash(str) {
+			let hash = 0;
+			for (let i = 0; i < str.length; i++) {
+				const char = str.charCodeAt(i);
+				hash = ((hash << 5) - hash) + char;
+				hash = hash & hash;
+			}
+			return hash.toString(16);
 		}
 
 		function switchTab(tab) {
@@ -546,28 +547,38 @@
 			const currentPassword = document.getElementById('currentPassword').value;
 			const newPassword = document.getElementById('newPassword').value;
 			const confirmPassword = document.getElementById('confirmPassword').value;
-			if (newPassword !== confirmPassword) { showToast('两次新密码不一致', 'error'); return; }
-			fetch(AUTH_API + '/password', {
-				method: 'PUT',
-				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify({ currentPassword, newPassword, password: localStorage.getItem(PASSWORD_KEY) })
-			})
-			.then(res => res.json())
-			.then(res => {
-				if (res.success) {
-					showToast('密码修改成功，请重新登录', 'success');
-					document.getElementById('currentPassword').value = '';
-					document.getElementById('newPassword').value = '';
-					document.getElementById('confirmPassword').value = '';
-					setTimeout(() => {
-						localStorage.removeItem(LOGIN_KEY);
-						localStorage.removeItem(PASSWORD_KEY);
-						showLogin();
-					}, 1500);
-				} else {
-					showToast(res.error, 'error');
-				}
-			});
+			
+			const storedHash = localStorage.getItem(PASSWORD_HASH_KEY) || DEFAULT_PASSWORD;
+			const inputHash = simpleHash(currentPassword);
+			
+			if (inputHash !== storedHash) {
+				showToast('当前密码错误', 'error');
+				return;
+			}
+			
+			if (newPassword !== confirmPassword) {
+				showToast('两次新密码不一致', 'error');
+				return;
+			}
+			
+			if (newPassword.length < 1) {
+				showToast('密码不能为空', 'error');
+				return;
+			}
+			
+			const newHash = simpleHash(newPassword);
+			localStorage.setItem(PASSWORD_HASH_KEY, newHash);
+			localStorage.setItem(PASSWORD_KEY, newPassword);
+			
+			showToast('密码修改成功，请重新登录', 'success');
+			document.getElementById('currentPassword').value = '';
+			document.getElementById('newPassword').value = '';
+			document.getElementById('confirmPassword').value = '';
+			
+			setTimeout(() => {
+				localStorage.removeItem(LOGIN_KEY);
+				showLogin();
+			}, 1500);
 		});
 
 		function loadItems() {
@@ -589,7 +600,7 @@
 				row.innerHTML = `
 					<div><div class="mobile-label" style="display:none;">名称</div><div class="item-name">${escapeHtml(item.name)}</div></div>
 					<div><div class="mobile-label" style="display:none;">URL</div><div class="item-url">${escapeHtml(item.url)}</div></div>
-					<div><div class="mobile-label" style="display:none;">标签</div><div class="item-tags">${escapeHtml(item.tags.join(', '))}</div></div>
+					<div><div class="mobile-label" style="display:none;">标签</div><div class="item-tags">${escapeHtml(item.tags ? item.tags.join(', ') : '')}</div></div>
 					<div class="item-actions">
 						<button class="btn btn-edit" onclick="showEditModal(${index})">编辑</button>
 						<button class="btn btn-danger" onclick="deleteItem(${index})">删除</button>
@@ -612,7 +623,7 @@
 			document.getElementById('itemIndex').value = index;
 			document.getElementById('itemName').value = item.name;
 			document.getElementById('itemUrl').value = item.url;
-			document.getElementById('itemTags').value = item.tags.join(', ');
+			document.getElementById('itemTags').value = item.tags ? item.tags.join(', ') : '';
 			document.getElementById('formModal').classList.add('active');
 		}
 
@@ -632,31 +643,31 @@
 
 			if (index === '') {
 				navigationData.push(item);
-				saveData('添加成功');
 			} else {
 				navigationData[index] = item;
-				saveData('更新成功');
 			}
+			saveData();
 		});
 
-		function saveData(message) {
-			fetch('./api/save', {
-				method: 'POST',
-				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify({ data: navigationData, password: localStorage.getItem(PASSWORD_KEY) })
-			})
-			.then(res => res.json())
-			.then(res => {
-				if (res.success) { showToast(message, 'success'); closeModal(); loadItems(); }
-				else { showToast('保存失败', 'error'); }
-			})
-			.catch(() => showToast('保存失败', 'error'));
+		function saveData() {
+			const dataStr = JSON.stringify(navigationData, null, 2);
+			const blob = new Blob([dataStr], { type: 'application/json' });
+			
+			const a = document.createElement('a');
+			a.href = URL.createObjectURL(blob);
+			a.download = 'navigation.json';
+			a.click();
+			URL.revokeObjectURL(a.href);
+			
+			showToast('数据已生成，请下载并替换 config/navigation.json 文件', 'success');
+			closeModal();
+			renderItems();
 		}
 
 		function deleteItem(index) {
 			if (!confirm('确定要删除这个导航吗？')) return;
 			navigationData.splice(index, 1);
-			saveData('删除成功');
+			saveData();
 		}
 
 		function showToast(message, type) {

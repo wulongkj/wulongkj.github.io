@@ -53,7 +53,7 @@ loadData().then(() => {
         searchInput.addEventListener("input", function() {
             const searchText = searchInput.value.trim().toLowerCase();
             const filtered = data.filter(item =>
-                item.tags.some(tag => tag.toLowerCase().includes(searchText))
+                item.tags && item.tags.some(tag => tag.toLowerCase().includes(searchText))
             );
             showNavigation(filtered);
         });
