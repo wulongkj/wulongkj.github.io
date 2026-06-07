@@ -460,8 +460,7 @@
 		let navigationData = [];
 		const LOGIN_KEY = 'wulong_admin_logged_in';
 		const PASSWORD_KEY = 'wulong_admin_password';
-		const PASSWORD_HASH_KEY = 'wulong_admin_password_hash';
-		const DEFAULT_PASSWORD = '240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9';
+		const DEFAULT_PASSWORD = 'admin123';
 
 		checkAuth();
 
@@ -501,10 +500,9 @@
 			btn.disabled = true;
 			
 			setTimeout(() => {
-				const storedHash = localStorage.getItem(PASSWORD_HASH_KEY) || DEFAULT_PASSWORD;
-				const inputHash = simpleHash(password);
+				const storedPassword = localStorage.getItem(PASSWORD_KEY) || DEFAULT_PASSWORD;
 				
-				if (inputHash === storedHash) {
+				if (password === storedPassword) {
 					localStorage.setItem(LOGIN_KEY, 'true');
 					localStorage.setItem(PASSWORD_KEY, password);
 					document.getElementById('loginOverlay').classList.add('hidden');
@@ -525,16 +523,6 @@
 			}, 500);
 		}
 
-		function simpleHash(str) {
-			let hash = 0;
-			for (let i = 0; i < str.length; i++) {
-				const char = str.charCodeAt(i);
-				hash = ((hash << 5) - hash) + char;
-				hash = hash & hash;
-			}
-			return hash.toString(16);
-		}
-
 		function switchTab(tab) {
 			document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
 			document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
@@ -548,10 +536,9 @@
 			const newPassword = document.getElementById('newPassword').value;
 			const confirmPassword = document.getElementById('confirmPassword').value;
 			
-			const storedHash = localStorage.getItem(PASSWORD_HASH_KEY) || DEFAULT_PASSWORD;
-			const inputHash = simpleHash(currentPassword);
+			const storedPassword = localStorage.getItem(PASSWORD_KEY) || DEFAULT_PASSWORD;
 			
-			if (inputHash !== storedHash) {
+			if (currentPassword !== storedPassword) {
 				showToast('当前密码错误', 'error');
 				return;
 			}
@@ -566,8 +553,6 @@
 				return;
 			}
 			
-			const newHash = simpleHash(newPassword);
-			localStorage.setItem(PASSWORD_HASH_KEY, newHash);
 			localStorage.setItem(PASSWORD_KEY, newPassword);
 			
 			showToast('密码修改成功，请重新登录', 'success');
