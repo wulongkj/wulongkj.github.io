@@ -495,6 +495,11 @@
 			errorDiv.classList.remove('show');
 			inputEl.classList.remove('error');
 			
+			// 前端验证密码
+			const storedPasswordHash = '240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9';
+			const inputHash = CryptoJS ? CryptoJS.SHA256(password).toString() : null;
+			
+			// 如果 CryptoJS 不可用，使用服务器验证
 			fetch(AUTH_API + '/login', {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },

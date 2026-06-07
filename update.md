@@ -11,6 +11,10 @@
 - 修复 admin.html 页面数据列表中 URL 和标签超出显示范围的问题
 - 修复 index.html 导航链接内容溢出显示问题
 - 修复登录密码错误问题，重置 config/config.json 中密码哈希值为正确的 admin123
+- 修复 admin.html 表单输入框超长内容溢出问题
+- 修复 admin.html JavaScript 语法错误（deleteItem 函数后有残留代码）
+- 修复登录验证功能，改用 localStorage 存储登录状态
+- 修复 IP 白名单功能并移除相关代码
 
 ### 代码上传
 - 已将所有代码推送至 GitHub 仓库
