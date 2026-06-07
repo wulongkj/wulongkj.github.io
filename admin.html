@@ -628,31 +628,38 @@
 
 			if (index === '') {
 				navigationData.push(item);
+				saveData('添加成功');
 			} else {
 				navigationData[index] = item;
+				saveData('更新成功');
 			}
-			saveData();
 		});
 
-		function saveData() {
-			const dataStr = JSON.stringify(navigationData, null, 2);
-			const blob = new Blob([dataStr], { type: 'application/json' });
-			
-			const a = document.createElement('a');
-			a.href = URL.createObjectURL(blob);
-			a.download = 'navigation.json';
-			a.click();
-			URL.revokeObjectURL(a.href);
-			
-			showToast('数据已生成，请下载并替换 config/navigation.json 文件', 'success');
-			closeModal();
-			renderItems();
+		function saveData(message) {
+			fetch('./api/save', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify(navigationData)
+			})
+			.then(res => res.json())
+			.then(res => {
+				if (res.success) {
+					showToast(message || '保存成功', 'success');
+					closeModal();
+					renderItems();
+				} else {
+					showToast('保存失败: ' + (res.error || '未知错误'), 'error');
+				}
+			})
+			.catch(() => {
+				showToast('保存失败，请重试', 'error');
+			});
 		}
 
 		function deleteItem(index) {
 			if (!confirm('确定要删除这个导航吗？')) return;
 			navigationData.splice(index, 1);
-			saveData();
+			saveData('删除成功');
 		}
 
 		function showToast(message, type) {
