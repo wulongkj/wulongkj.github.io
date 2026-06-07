@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<style>
+		@font-face {
+			font-family:'DouyinSansBold';
+			src:url('./font/DouyinSansBold.otf')format('opentype');
+			font-display: swap;
+		}
+		* { box-sizing: border-box; }
+		body, input, textarea, button, select {
+			font-family: 'DouyinSansBold', sans-serif !important;
+		}
+		body {
+			margin: 0;
+			padding: 0;
+			min-height: 100vh;
+			background-size: cover;
+			background-position: center;
+			background-attachment: fixed;
+			background-repeat: no-repeat;
+		}
+		.admin-container {
+			max-width: 1200px;
+			margin: 0 auto;
+			padding: 30px 20px;
+		}
+		.item-list,
+		.settings-panel,
+		.form-content,
+		.login-box {
+			background: rgba(255,255,255,0.95);
+			backdrop-filter: blur(10px);
+		}
+		.admin-header {
+			text-align: center;
+			color: white;
+			margin-bottom: 30px;
+		}
+		.admin-header h1 {
+			font-size: 32px;
+			margin-bottom: 20px;
+			text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+		}
+		.btn {
+			padding: 10px 20px;
+			background: rgba(255,255,255,0.95);
+			border: none;
+			border-radius: 8px;
+			cursor: pointer;
+			font-size: 14px;
+			font-weight: 500;
+			transition: all 0.3s ease;
+			margin: 0 5px;
+			font-family: 'DouyinSansBold', sans-serif !important;
+		}
+		.btn:hover {
+			background: white;
+			transform: translateY(-2px);
+			box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+		}
+		.btn-primary { background: #4CAF50; color: white; }
+		.btn-primary:hover { background: #45a049; }
+		.btn-danger { background: #f44336; color: white; }
+		.btn-danger:hover { background: #da190b; }
+		.btn-edit { background: #2196F3; color: white; }
+		.btn-edit:hover { background: #0b7dda; }
+		.btn-warning { background: #ff9800; color: white; }
+		.btn-warning:hover { background: #f57c00; }
+		.form-modal {
+			display: none;
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background: rgba(0,0,0,0.6);
+			z-index: 1000;
+			justify-content: center;
+			align-items: center;
+		}
+		.form-modal.active { display: flex; }
+		.form-content {
+			background: white;
+			padding: 30px;
+			border-radius: 15px;
+			width: 90%;
+			max-width: 500px;
+			box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+		}
+		.form-content h2 {
+			margin-top: 0;
+			color: #333;
+			margin-bottom: 20px;
+		}
+		.form-group {
+			margin-bottom: 20px;
+		}
+		.form-group label {
+			display: block;
+			margin-bottom: 5px;
+			color: #333;
+			font-weight: 500;
+		}
+		.form-group input,
+		.form-group textarea {
+			width: 100%;
+			padding: 12px;
+			border: 2px solid #e0e0e0;
+			border-radius: 8px;
+			font-size: 14px;
+			transition: border-color 0.3s;
+			font-family: 'DouyinSansBold', sans-serif !important;
+		}
+		.form-group input:focus,
+		.form-group textarea:focus {
+			outline: none;
+			border-color: #667eea;
+		}
+		.form-group textarea {
+			min-height: 100px;
+			resize: vertical;
+		}
+		.form-actions {
+			display: flex;
+			justify-content: flex-end;
+			gap: 10px;
+			margin-top: 25px;
+		}
+		.form-actions button {
+			padding: 10px 25px;
+			border: none;
+			border-radius: 8px;
+			cursor: pointer;
+			font-size: 14px;
+			font-weight: 500;
+			transition: all 0.3s ease;
+			font-family: 'DouyinSansBold', sans-serif !important;
+		}
+		.form-actions button[type="submit"] {
+			background: #667eea;
+			color: white;
+		}
+		.form-actions button[type="submit"]:hover { background: #5a6fd6; }
+		.form-actions button[type="button"] {
+			background: #e0e0e0;
+			color: #333;
+		}
+		.form-actions button[type="button"]:hover { background: #d0d0d0; }
+		.item-list {
+			background: white;
+			border-radius: 15px;
+			padding: 20px;
+			box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+		}
+		.item-header {
+			display: grid;
+			grid-template-columns: 1fr 2fr 2fr 150px;
+			gap: 15px;
+			padding: 12px 15px;
+			background: #f5f5f5;
+			border-radius: 8px;
+			font-weight: bold;
+			margin-bottom: 10px;
+			color: #333;
+		}
+		.item-row {
+			display: grid;
+			grid-template-columns: 1fr 2fr 2fr 150px;
+			gap: 15px;
+			padding: 15px;
+			border-bottom: 1px solid #e0e0e0;
+			align-items: center;
+			min-height: 65px;
+			transition: background 0.2s;
+		}
+		.item-row:hover { background: #f9f9f9; }
+		.item-row:last-child { border-bottom: none; }
+		.item-name { 
+			font-weight: 500; 
+			color: #667eea; 
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+		}
+		.item-url { 
+			color: #666; 
+			font-size: 13px; 
+			overflow: hidden; 
+			text-overflow: ellipsis; 
+			white-space: nowrap;
+			max-width: 100%;
+		}
+		.item-tags { 
+			color: #888; 
+			font-size: 12px; 
+			overflow: hidden; 
+			text-overflow: ellipsis; 
+			white-space: nowrap;
+			max-width: 100%;
+		}
+		.item-actions { display: flex; gap: 5px; }
+		.item-actions button {
+			padding: 6px 12px;
+			font-size: 12px;
+			font-family: 'DouyinSansBold', sans-serif !important;
+		}
+		.toast {
+			position: fixed;
+			bottom: 30px;
+			right: 30px;
+			padding: 15px 25px;
+			background: white;
+			border-radius: 8px;
+			box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+			display: none;
+			z-index: 2000;
+			animation: slideIn 0.3s ease;
+		}
+		.toast.success { border-left: 4px solid #4CAF50; }
+		.toast.error { border-left: 4px solid #f44336; }
+		@keyframes slideIn {
+			from { transform: translateX(100%); opacity: 0; }
+			to { transform: translateX(0); opacity: 1; }
+		}
+		.login-overlay {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			z-index: 3000;
+		}
+	.login-box {
+			background: white;
+			padding: 40px;
+			border-radius: 20px;
+			box-shadow: 0 10px 50px rgba(0,0,0,0.3);
+			width: 90%;
+			max-width: 400px;
+			text-align: center;
+		}
+		.login-box h2 {
+			margin-top: 0;
+			color: #333;
+			margin-bottom: 10px;
+		}
+		.login-box p {
+			color: #666;
+			margin-bottom: 30px;
+		}
+		.login-box .form-group { margin-bottom: 25px; }
+		.login-error {
+			color: #f44336;
+			font-size: 14px;
+			margin-top: 10px;
+			min-height: 20px;
+			display: none;
+		}
+		.login-error.show { display: block; }
+		.login-box input {
+			width: 100%;
+			padding: 14px;
+			border: 2px solid #e0e0e0;
+			border-radius: 10px;
+			font-size: 15px;
+			transition: border-color 0.3s;
+			font-family: 'DouyinSansBold', sans-serif !important;
+		}
+		.login-box input:focus {
+			outline: none;
+			border-color: #667eea;
+		}
+		.login-box input.error {
+			border-color: #f44336;
+			animation: shake 0.3s ease;
+		}
+		@keyframes shake {
+			0%, 100% { transform: translateX(0); }
+			25% { transform: translateX(-5px); }
+			75% { transform: translateX(5px); }
+		}
+		.login-box button {
+			width: 100%;
+			padding: 14px;
+			background: #667eea;
+			color: white;
+			border: none;
+			border-radius: 10px;
+			font-size: 16px;
+			font-weight: 500;
+			cursor: pointer;
+			transition: all 0.3s ease;
+			font-family: 'DouyinSansBold', sans-serif !important;
+		}
+		.login-box button:hover {
+			background: #5a6fd6;
+			transform: translateY(-2px);
+			box-shadow: 0 4px 15px rgba(102,126,234,0.3);
+		}
+		.settings-panel {
+			background: white;
+			border-radius: 15px;
+			padding: 25px;
+			margin-bottom: 25px;
+			box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+		}
+		.settings-panel h3 {
+			margin-top: 0;
+			color: #333;
+			margin-bottom: 20px;
+		}
+		.ip-list {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 10px;
+			margin-bottom: 15px;
+		}
+		.ip-tag {
+			background: #f0f0f0;
+			padding: 8px 15px;
+			border-radius: 20px;
+			font-size: 13px;
+			display: flex;
+			align-items: center;
+			gap: 8px;
+		}
+		.ip-tag button {
+			background: #ff4444;
+			color: white;
+			border: none;
+			border-radius: 50%;
+			width: 20px;
+			height: 20px;
+			font-size: 12px;
+			cursor: pointer;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-family: 'DouyinSansBold', sans-serif !important;
+		}
+		.ip-input-group {
+			display: flex;
+			gap: 10px;
+		}
+		.ip-input-group input {
+			flex: 1;
+			padding: 10px 15px;
+			border: 2px solid #e0e0e0;
+			border-radius: 8px;
+			font-size: 14px;
+			font-family: 'DouyinSansBold', sans-serif !important;
+		}
+		.ip-input-group input:focus {
+			outline: none;
+			border-color: #667eea;
+		}
+		.tab-container { margin-bottom: 20px; }
+		.tab-buttons {
+			display: flex;
+			gap: 10px;
+			margin-bottom: 20px;
+		}
+		.tab-btn {
+			flex: 1;
+			padding: 12px;
+			background: rgba(255,255,255,0.2);
+			border: none;
+			border-radius: 8px;
+			color: white;
+			font-size: 14px;
+			font-weight: 500;
+			cursor: pointer;
+			transition: all 0.3s ease;
+			font-family: 'DouyinSansBold', sans-serif !important;
+		}
+		.tab-btn.active {
+			background: white;
+			color: #667eea;
+		}
+		.tab-content { display: none; }
+		.tab-content.active { display: block; }
+		.hidden { display: none !important; }
+		@media (max-width: 768px) {
+			.item-header, .item-row { grid-template-columns: 1fr; gap: 10px; }
+			.item-header { display: none; }
+			.item-row { border: 1px solid #e0e0e0; margin-bottom: 10px; border-radius: 8px; }
+			.item-actions { margin-top: 10px; }
+			.mobile-label { font-weight: bold; color: #667eea; margin-bottom: 3px; }
+		}
+		@media (max-width: 480px) {
+			.login-box { padding: 30px 20px; }
+			.ip-input-group { flex-direction: column; }
+			.tab-buttons { flex-direction: column; }
+		}
+	</style>
+	<title>导航管理</title>
+</head>
+<body>
+	<div class="login-overlay" id="loginOverlay">
+		<div class="login-box">
+			<h2>管理后台登录</h2>
+			<p>请输入访问密码</p>
+			<div class="form-group">
+				<input type="password" id="loginPassword" placeholder="请输入密码" onkeypress="if(event.keyCode===13) doLogin()">
+				<div class="login-error" id="loginError"></div>
+			</div>
+			<button onclick="doLogin()">登录</button>
+		</div>
+	</div>
+
+	<div id="mainContent" class="hidden">
+		<div class="admin-container">
+			<div class="admin-header">
+				<h1>导航管理系统</h1>
+				<div class="tab-container">
+					<div class="tab-buttons">
+						<button class="tab-btn active" onclick="switchTab('items')">导航管理</button>
+						<button class="tab-btn" onclick="switchTab('settings')">安全设置</button>
+					</div>
+				</div>
+			</div>
+
+			<div id="itemsTab" class="tab-content active">
+				<div style="text-align: center; margin-bottom: 20px;">
+					<button class="btn btn-primary" onclick="showAddModal()">+ 新增导航</button>
+					<button class="btn" onclick="window.location.href='./'">返回前台</button>
+				</div>
+				
+				<div class="item-list" id="itemList">
+					<div class="item-header">
+						<div>名称</div>
+						<div>URL</div>
+						<div>标签</div>
+						<div>操作</div>
+					</div>
+					<div id="itemsContainer"></div>
+				</div>
+			</div>
+
+			<div id="settingsTab" class="tab-content">
+				<div class="settings-panel">
+					<h3>修改密码</h3>
+					<form id="passwordForm">
+						<div class="form-group">
+							<label>当前密码</label>
+							<input type="password" id="currentPassword" required>
+						</div>
+						<div class="form-group">
+							<label>新密码</label>
+							<input type="password" id="newPassword" required>
+						</div>
+						<div class="form-group">
+							<label>确认新密码</label>
+							<input type="password" id="confirmPassword" required>
+						</div>
+						<div class="form-actions">
+							<button type="submit">修改密码</button>
+						</div>
+					</form>
+				</div>
+
+				<div class="settings-panel">
+					<h3>IP 白名单</h3>
+					<p style="color: #666; margin-bottom: 20px;">当前 IP: <span id="currentIp" style="color: #667eea; font-weight: bold;">加载中...</span></p>
+					<div class="ip-list" id="ipList"></div>
+					<div class="ip-input-group">
+						<input type="text" id="newIp" placeholder="输入要添加的 IP 地址">
+						<button class="btn btn-primary" onclick="addIp()" style="flex: 0 0 auto;">添加 IP</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="form-modal" id="formModal">
+		<div class="form-content">
+			<h2 id="modalTitle">新增导航</h2>
+			<form id="itemForm">
+				<input type="hidden" id="itemIndex">
+				<div class="form-group">
+					<label>名称 *</label>
+					<input type="text" id="itemName" required>
+				</div>
+				<div class="form-group">
+					<label>URL *</label>
+					<input type="url" id="itemUrl" required>
+				</div>
+				<div class="form-group">
+					<label>标签（逗号分隔）</label>
+					<textarea id="itemTags" placeholder="标签 1, 标签 2, 标签 3"></textarea>
+				</div>
+				<div class="form-actions">
+					<button type="button" onclick="closeModal()">取消</button>
+					<button type="submit">保存</button>
+				</div>
+			</form>
+		</div>
+	</div>
+
+	<div class="toast" id="toast"></div>
+
+	<script>
+		const API_URL = './api/navigation';
+		const AUTH_API = './api/auth';
+		let navigationData = [];
+
+		checkAuth();
+
+		function checkAuth() {
+			fetch(AUTH_API + '/check', { credentials: 'same-origin' })
+				.then(res => res.json())
+				.then(res => {
+					if (res.success) {
+						isLoggedIn = true;
+						document.getElementById('loginOverlay').classList.add('hidden');
+						document.getElementById('mainContent').classList.remove('hidden');
+						loadItems();
+					} else {
+						showLogin();
+					}
+				})
+				.catch(() => showLogin());
+		}
+
+		function showLogin() {
+			document.getElementById('loginOverlay').classList.remove('hidden');
+			document.getElementById('mainContent').classList.add('hidden');
+		}
+
+		function doLogin() {
+			const password = document.getElementById('loginPassword').value;
+			const errorDiv = document.getElementById('loginError');
+			const inputEl = document.getElementById('loginPassword');
+			
+			if (!password) {
+				errorDiv.textContent = '请输入密码';
+				errorDiv.classList.add('show');
+				inputEl.classList.add('error');
+				return;
+			}
+			
+			errorDiv.classList.remove('show');
+			inputEl.classList.remove('error');
+			
+			fetch(AUTH_API + '/login', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				credentials: 'same-origin',
+				body: JSON.stringify({ password })
+			})
+			.then(res => res.json())
+			.then(res => {
+				if (res.success) {
+					document.getElementById('loginOverlay').classList.add('hidden');
+					document.getElementById('mainContent').classList.remove('hidden');
+					document.getElementById('loginPassword').value = '';
+					loadItems();
+					showToast('登录成功', 'success');
+				} else {
+					errorDiv.textContent = res.error || '密码错误';
+					errorDiv.classList.add('show');
+					inputEl.classList.add('error');
+					inputEl.select();
+				}
+			})
+			.catch(err => {
+				errorDiv.textContent = '登录失败，请重试';
+				errorDiv.classList.add('show');
+				inputEl.classList.add('error');
+			});
+		}
+
+		function switchTab(tab) {
+			document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+			document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+			event.target.classList.add('active');
+			document.getElementById(tab + 'Tab').classList.add('active');
+			if (tab === 'settings') {
+				loadCurrentIp();
+				loadIpList();
+			}
+		}
+
+		function loadCurrentIp() {
+			fetch(AUTH_API + '/ip')
+				.then(res => res.json())
+				.then(res => { document.getElementById('currentIp').textContent = res.ip || '未知'; });
+		}
+
+		function loadIpList() {
+			fetch(AUTH_API + '/whitelist')
+				.then(res => res.json())
+				.then(res => {
+					if (res.success) {
+						const ipList = document.getElementById('ipList');
+						ipList.innerHTML = '';
+						(res.ips || []).forEach(ip => {
+							const tag = document.createElement('div');
+							tag.className = 'ip-tag';
+							tag.innerHTML = `<span>${ip}</span><button onclick="removeIp('${ip}')">×</button>`;
+							ipList.appendChild(tag);
+						});
+					}
+				});
+		}
+
+		function addIp() {
+			const ip = document.getElementById('newIp').value.trim();
+			if (!ip) { showToast('请输入 IP 地址', 'error'); return; }
+			fetch(AUTH_API + '/whitelist', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				credentials: 'same-origin',
+				body: JSON.stringify({ ip })
+			})
+			.then(res => res.json())
+			.then(res => {
+				if (res.success) {
+					showToast('IP 添加成功', 'success');
+					document.getElementById('newIp').value = '';
+					loadIpList();
+				} else {
+					showToast(res.error, 'error');
+				}
+			});
+		}
+
+		function removeIp(ip) {
+			if (!confirm(`确定要移除 IP ${ip} 吗？`)) return;
+			fetch(AUTH_API + '/whitelist', {
+				method: 'DELETE',
+				headers: { 'Content-Type': 'application/json' },
+				credentials: 'same-origin',
+				body: JSON.stringify({ ip })
+			})
+			.then(res => res.json())
+			.then(res => {
+				if (res.success) { showToast('IP 移除成功', 'success'); loadIpList(); }
+				else { showToast(res.error, 'error'); }
+			});
+		}
+
+		document.getElementById('passwordForm').addEventListener('submit', function(e) {
+			e.preventDefault();
+			const currentPassword = document.getElementById('currentPassword').value;
+			const newPassword = document.getElementById('newPassword').value;
+			const confirmPassword = document.getElementById('confirmPassword').value;
+			if (newPassword !== confirmPassword) { showToast('两次新密码不一致', 'error'); return; }
+			fetch(AUTH_API + '/password', {
+				method: 'PUT',
+				headers: { 'Content-Type': 'application/json' },
+				credentials: 'same-origin',
+				body: JSON.stringify({ currentPassword, newPassword })
+			})
+			.then(res => res.json())
+			.then(res => {
+				if (res.success) {
+					showToast('密码修改成功，请重新登录', 'success');
+					document.getElementById('currentPassword').value = '';
+					document.getElementById('newPassword').value = '';
+					document.getElementById('confirmPassword').value = '';
+					setTimeout(() => {
+						fetch(AUTH_API + '/logout', { credentials: 'same-origin' });
+						showLogin();
+					}, 1500);
+				} else {
+					showToast(res.error, 'error');
+				}
+			});
+		});
+
+		function loadItems() {
+			fetch(API_URL)
+				.then(res => res.json())
+				.then(res => {
+					if (res.success) { navigationData = res.data; renderItems(); }
+					else { showToast('加载失败', 'error'); }
+				})
+				.catch(err => showToast('加载失败', 'error'));
+		}
+
+		function renderItems() {
+			const container = document.getElementById('itemsContainer');
+			container.innerHTML = '';
+			navigationData.forEach((item, index) => {
+				const row = document.createElement('div');
+				row.className = 'item-row';
+				row.innerHTML = `
+					<div><div class="mobile-label" style="display:none;">名称</div><div class="item-name">${escapeHtml(item.name)}</div></div>
+					<div><div class="mobile-label" style="display:none;">URL</div><div class="item-url">${escapeHtml(item.url)}</div></div>
+					<div><div class="mobile-label" style="display:none;">标签</div><div class="item-tags">${escapeHtml(item.tags.join(', '))}</div></div>
+					<div class="item-actions">
+						<button class="btn btn-edit" onclick="showEditModal(${index})">编辑</button>
+						<button class="btn btn-danger" onclick="deleteItem(${index})">删除</button>
+					</div>
+				`;
+				container.appendChild(row);
+			});
+		}
+
+		function showAddModal() {
+			document.getElementById('modalTitle').textContent = '新增导航';
+			document.getElementById('itemForm').reset();
+			document.getElementById('itemIndex').value = '';
+			document.getElementById('formModal').classList.add('active');
+		}
+
+		function showEditModal(index) {
+			const item = navigationData[index];
+			document.getElementById('modalTitle').textContent = '编辑导航';
+			document.getElementById('itemIndex').value = index;
+			document.getElementById('itemName').value = item.name;
+			document.getElementById('itemUrl').value = item.url;
+			document.getElementById('itemTags').value = item.tags.join(', ');
+			document.getElementById('formModal').classList.add('active');
+		}
+
+		function closeModal() {
+			document.getElementById('formModal').classList.remove('active');
+		}
+
+		document.getElementById('itemForm').addEventListener('submit', function(e) {
+			e.preventDefault();
+			const index = document.getElementById('itemIndex').value;
+			const item = {
+				name: document.getElementById('itemName').value.trim(),
+				url: document.getElementById('itemUrl').value.trim(),
+				tags: document.getElementById('itemTags').value.split(',').map(t => t.trim()).filter(t => t)
+			};
+			if (!item.name || !item.url) { showToast('名称和 URL 不能为空', 'error'); return; }
+
+			if (index === '') {
+				fetch(API_URL, {
+					method: 'POST',
+					headers: { 'Content-Type': 'application/json' },
+					credentials: 'same-origin',
+					body: JSON.stringify(item)
+				})
+				.then(res => res.json())
+				.then(res => {
+					if (res.success) { showToast('添加成功', 'success'); closeModal(); loadItems(); }
+					else { showToast('添加失败', 'error'); }
+				});
+			} else {
+				fetch(API_URL + '/' + index, {
+					method: 'PUT',
+					headers: { 'Content-Type': 'application/json' },
+					credentials: 'same-origin',
+					body: JSON.stringify(item)
+				})
+				.then(res => res.json())
+				.then(res => {
+					if (res.success) { showToast('更新成功', 'success'); closeModal(); loadItems(); }
+					else { showToast('更新失败', 'error'); }
+				});
+			}
+		});
+
+		function deleteItem(index) {
+			if (!confirm('确定要删除这个导航吗？')) return;
+			fetch(API_URL + '/' + index, {
+				method: 'DELETE',
+				headers: { 'Content-Type': 'application/json' },
+				credentials: 'same-origin'
+			})
+			.then(res => res.json())
+			.then(res => {
+				if (res.success) { showToast('删除成功', 'success'); loadItems(); }
+				else { showToast('删除失败', 'error'); }
+			});
+		}
+
+		function showToast(message, type) {
+			const toast = document.getElementById('toast');
+			toast.textContent = message;
+			toast.className = 'toast ' + (type || 'success');
+			toast.style.display = 'block';
+			setTimeout(() => { toast.style.display = 'none'; }, 3000);
+		}
+
+		function escapeHtml(text) {
+			if (!text) return '';
+			return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
+		}
+
+		document.getElementById('formModal').addEventListener('click', function(e) {
+			if (e.target === this) closeModal();
+		});
+	</script>
+	<script src="./js/background.js"></script>
+</body>
+</html>

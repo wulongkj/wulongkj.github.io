@@ -2,103 +2,123 @@
 <html>
 <head>
 	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<style>
 		@font-face{
-			font-family:'dymht0';
-			src:url('https://v.wtivz.space/DouyinSansBold.otf')format('opentype');
+			font-family:'DouyinSansBold';
+			src:url('./font/DouyinSansBold.otf')format('opentype');
+			font-display: swap;
 		}
-		body{
-			font-family: 'dymht0',sans-serif;
+		* { box-sizing: border-box; }
+		body, input, textarea, button {
+			font-family: 'DouyinSansBold', sans-serif !important;
+		}
+		body {
+			margin: 0;
+			padding: 20px;
+			min-height: 100vh;
+			text-align: center;
+			background-size: cover;
+			background-position: center;
+			background-attachment: fixed;
+			background-repeat: no-repeat;
+		}
+		.search-container {
+			max-width: 600px;
+			margin: 40px auto 30px;
+			padding: 0 20px;
 		}
 		#search {
-		  	font-family: 'dymht0', sans-serif;
+			width: 100%;
+			padding: 15px 25px;
+			font-size: 16px;
+			border: 2px solid rgba(255,255,255,0.3);
+			border-radius: 50px;
+			background: rgba(255,255,255,0.95);
+			backdrop-filter: blur(10px);
+			box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+			transition: all 0.3s ease;
+			outline: none;
 		}
-		title {
-		  	font-family: 'dymht0', sans-serif;
+		#search:focus {
+			border-color: #667eea;
+			box-shadow: 0 6px 30px rgba(102,126,234,0.3);
+			transform: translateY(-2px);
 		}
-	</style>
-	<title>导航网站</title>
-	<link rel="shortcut icon" href="https://github.com/fluidicon.png" type="image/x-icon">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-	<meta name="keywords" content="导航网站,个人导航,开源导航,乌龙导航" />
-	<meta name="description" content="一个个人导航网站-乌龙导航" />
-	<script src="./js/Notice/sweetalert.min.js"></script>
-	<style>
-		body {
-		  text-align: center;
-		}
-		
 		.navigation {
-		  display: flex;
-		  flex-wrap: wrap;
-		  justify-content: center;
-		  margin: 20px;
+			display: grid;
+			grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+			gap: 15px;
+			max-width: 1200px;
+			margin: 0 auto;
+			padding: 20px;
 		}
-    
 		.navigation a {
-		  display: inline-block;
-		  padding: 10px;
-		  margin: 10px;
-		  background-color: #f0f0f0;
-		  text-decoration: none;
-		  color: #333;
-		  border-radius: 5px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			padding: 20px 15px;
+			background: rgba(255,255,255,0.95);
+			backdrop-filter: blur(10px);
+			text-decoration: none;
+			color: #333;
+			border-radius: 12px;
+			font-size: 15px;
+			font-weight: 500;
+			box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+			transition: all 0.3s ease;
+			border: 1px solid rgba(255,255,255,0.5);
+			min-height: 60px;
+			text-align: center;
+			word-break: break-word;
+		}
+		.navigation a:hover {
+			transform: translateY(-5px);
+			box-shadow: 0 8px 25px rgba(102,126,234,0.25);
+			background: rgba(255,255,255,1);
+			border-color: #667eea;
+			color: #667eea;
+		}
+		@media (max-width: 768px) {
+			body { padding: 15px; }
+			.search-container { margin: 20px auto; padding: 0 10px; }
+			#search { padding: 12px 20px; font-size: 15px; }
+			.navigation {
+				grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+				gap: 12px;
+				padding: 15px 10px;
+			}
+			.navigation a { padding: 18px 12px; font-size: 14px; min-height: 55px; border-radius: 10px; }
+		}
+		@media (max-width: 480px) {
+			body { padding: 10px; }
+			.search-container { margin: 15px auto; padding: 0 5px; }
+			#search { padding: 11px 18px; font-size: 14px; }
+			.navigation {
+				grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+				gap: 10px;
+				padding: 10px 5px;
+			}
+			.navigation a { padding: 15px 10px; font-size: 13px; min-height: 50px; border-radius: 8px; }
+		}
+		@media (max-width: 360px) {
+			.navigation { grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); gap: 8px; }
+			.navigation a { padding: 13px 8px; font-size: 12px; min-height: 45px; }
 		}
 	</style>
+	<title>乌龙导航</title>
+	<link rel="shortcut icon" href="https://github.com/fluidicon.png" type="image/x-icon">
+	<meta name="keywords" content="导航网站，个人导航，开源导航，乌龙导航" />
+	<meta name="description" content="一个个人导航网站 - 乌龙导航" />
 </head>
 <body>
-	<input type="text" id="search" placeholder="搜索">
+	<div class="search-container">
+		<input type="text" id="search" placeholder="搜索网站名称...">
+	</div>
 	<div class="navigation" id="navigation"></div>
 	<script src="./js/index.js"></script>
-  <script>
-    
-    var navigation = document.getElementById("navigation");
-    var searchInput = document.getElementById("search");
-
-    // 初始化导航
-    showNavigation(data);
-
-    // 监听搜索栏变化
-    searchInput.addEventListener("input", function() {
-      var searchText = searchInput.value.trim().toLowerCase();
-      var filteredData = data.filter(function(item) {
-        return item.tags.some(function(tag) {
-          return tag.toLowerCase().includes(searchText);
-        });
-      });
-      showNavigation(filteredData);
-    });
-
-    // 显示导航
-    function showNavigation(data) {
-      navigation.innerHTML = "";
-      data.forEach(function(item) {
-        var link = document.createElement("a");
-        link.href = item.url;
-		link.target="_lank";
-        link.textContent = item.name;
-        navigation.appendChild(link);
-      });
-    }
-  </script>
-  
-  <script src="./js/Notice/index.js"></script>
-  <style>
-	body {
-		background-image: url('https://tuapi.eees.cc/api.php?category=dongman&type=302');
-		background-size: cover;
-		background-position: center;
-		background-repeat: no-repeat;
-		background-attachment: fixed;
-		height: 100%;
-		width: 100%;
-	}
-  </style>
-  
-<!-- 统计鸟统计 -->
-<script type="text/javascript" src="//api.tongjiniao.com/c?_=575288469485506560" async></script>
-<script>
-	document.body.style.overflow = 'hidden';
-</script>
+	<script src="./js/Notice/index.js"></script>
+	<script src="./js/background.js"></script>
+	<script type="text/javascript" src="//api.tongjiniao.com/c?_=575288469485506560" async></script>
 </body>
 </html>
