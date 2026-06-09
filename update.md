@@ -1,6 +1,21 @@
 # 更新日志
 
-## 2026-06-07
+## 2026-06-09
+
+### 功能优化
+- 添加后端认证中间件，/api/save 接口需要携带 Authorization header 验证
+- 新增 /api/login 接口用于登录验证
+- 新增 /api/change-password 接口用于修改密码
+- 密码存储在 config/admin.json 文件中
+
+### Bug 修复
+- 修复 admin.html 登录验证失败问题
+- 修复 admin.html JavaScript 语法错误（重复代码块）
+- 修复数据保存时未授权问题
+
+### 代码更新
+- server.js: 添加认证中间件和登录接口
+- admin.html: 改用 addEventListener 绑定事件，调用后端 API 验证密码
 
 ### 功能优化
 - 简化前后端代码，index.html 直接读取 config/navigation.json 静态文件

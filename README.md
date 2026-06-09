@@ -36,7 +36,8 @@
 ├── package.json            # 项目依赖配置
 ├── config/                 # 配置文件目录
 │   ├── navigation.json     # 导航数据
-│   └── config.json         # 配置（密码、白名单）
+│   ├── config.json         # 网站配置
+│   └── admin.json          # 管理员密码（自动生成）
 ├── js/                     # JavaScript 文件目录
 │   ├── index.js            # 前台逻辑
 │   ├── background.js       # 随机壁纸控制（Bing 壁纸，10 秒循环）
@@ -67,8 +68,8 @@ node server.js
 
 ### 访问网站
 
-- 前台首页：http://localhost:3001
-- 管理后台：http://localhost:3001/admin.html
+- 前台首页：http://localhost:3002
+- 管理后台：http://localhost:3002/admin.html
 
 ---
 
@@ -136,28 +137,15 @@ node server.js
 
 | 方法 | 路径 | 说明 |
 |------|------|------|
-| GET | /api/navigation | 获取导航列表 |
+| GET | /config/navigation.json | 获取导航列表（静态文件） |
 
 ### 需认证接口
 
 | 方法 | 路径 | 说明 | 参数 |
 |------|------|------|------|
-| POST | /api/navigation | 添加导航 | `{name, url, tags}` |
-| PUT | /api/navigation/:index | 更新导航 | `{name, url, tags}` |
-| DELETE | /api/navigation/:index | 删除导航 | - |
-
-### 认证接口
-
-| 方法 | 路径 | 说明 |
-|------|------|------|
-| GET | /api/auth/check | 检查登录状态 |
-| POST | /api/auth/login | 登录 |
-| POST | /api/auth/logout | 退出 |
-| GET | /api/auth/ip | 获取当前 IP |
-| GET | /api/auth/whitelist | 获取 IP 白名单 |
-| POST | /api/auth/whitelist | 添加 IP |
-| DELETE | /api/auth/whitelist | 移除 IP |
-| PUT | /api/auth/password | 修改密码 |
+| POST | /api/save | 保存导航数据 | 导航数组 JSON |
+| POST | /api/login | 登录验证 | `{password}` |
+| POST | /api/change-password | 修改密码 | `{newPassword}` |
 
 ---
 
@@ -178,9 +166,8 @@ node server.js
 
 | 名称 | 版本 | 用途 |
 |------|------|------|
-| express | ^4.18.2 | Web 框架 |
-| cors | ^2.8.5 | 跨域支持 |
-| express-session | ^1.19.0 | 会话管理 |
+| express | ^5.2.1 | Web 框架 |
+| cors | ^2.8.6 | 跨域支持 |
 
 ### 前端资源
 
@@ -203,7 +190,6 @@ node server.js
 
 - **前端**：原生 HTML + CSS + JavaScript
 - **后端**：Node.js 18+ + Express
-- **会话**：express-session
 - **存储**：JSON 文件（config/目录）
 - **字体**：DouyinSansBold（抖音无版权字体）
 
@@ -212,10 +198,9 @@ node server.js
 ## 安全建议
 
 1. ✅ 首次登录后立即修改默认密码
-2. ✅ 定期更新密码（至少 8 位，含字母数字）
-3. ✅ 配置 IP 白名单，只允许信任 IP 访问
-4. ✅ 不要在生产环境使用默认配置
-5. ✅ 定期备份 config/目录下的配置文件
+2. ✅ 定期更新密码（至少 6 位）
+3. ✅ 不要在生产环境使用默认配置
+4. ✅ 定期备份 config/ 目录下的配置文件
 
 ---
 
@@ -266,4 +251,4 @@ MIT License
 
 ---
 
-最后更新：2026-06-07
+最后更新：2026-06-09
