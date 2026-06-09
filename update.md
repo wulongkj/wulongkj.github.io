@@ -34,7 +34,6 @@
 - 修复 admin.html 表单输入框超长内容溢出问题
 - 修复 admin.html JavaScript 语法错误（deleteItem 函数后有残留代码）
 - 修复登录验证功能，改用 localStorage 存储登录状态
-- 修复 IP 白名单功能并移除相关代码
 - 修复 CryptoJS 未定义错误，移除多余的 CryptoJS 引用
 
 ### 代码上传
