@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="120" viewBox="0 0 900 120">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#667eea"/>
+      <stop offset="1" stop-color="#764ba2"/>
+    </linearGradient>
+  </defs>
+  <rect width="900" height="120" rx="12" fill="url(#g)"/>
+  <rect x="24" y="30" width="56" height="56" rx="12" fill="#ffffff" opacity="0.9"/>
+  <circle cx="38" cy="46" r="6" fill="#667eea"/>
+  <path d="M52 62c-6-8-12-10-18-10s-12 2-18 10" stroke="#667eea" stroke-width="4" fill="none" stroke-linecap="round"/>
+  <rect x="100" y="36" width="320" height="20" rx="10" fill="#ffffff" opacity="0.95"/>
+  <rect x="100" y="66" width="240" height="14" rx="7" fill="#ffffff" opacity="0.7"/>
+  <rect x="700" y="40" width="150" height="40" rx="20" fill="#ffffff" opacity="0.95"/>
+  <text x="775" y="66" font-family="sans-serif" font-size="20" font-weight="bold" fill="#764ba2" text-anchor="middle">立即了解</text>
+</svg>

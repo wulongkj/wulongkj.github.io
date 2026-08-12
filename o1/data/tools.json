@@ -1,0 +1,104 @@
+[
+  {
+    "name": "彩虹工具网",
+    "url": "https://tool.cccyun.cc/viewhtml",
+    "desc": "免费在线工具集，含网页源码查看",
+    "tags": ["免费在线工具", "网页源码查看"]
+  },
+  {
+    "name": "独特工具箱",
+    "url": "https://www.dute.org",
+    "desc": "丰富的免费在线实用工具",
+    "tags": ["免费在线工具"]
+  },
+  {
+    "name": "站长工具箱",
+    "url": "https://www.gongjuhao.com",
+    "desc": "站长常用免费在线工具",
+    "tags": ["免费在线工具", "站长"]
+  },
+  {
+    "name": "Base64 加密/解密",
+    "url": "https://www.bt.cn/tools/encrybase.html",
+    "desc": "在线 Base64 加解密工具",
+    "tags": ["在线加密", "在线解密", "Base64", "加密解密"]
+  },
+  {
+    "name": "docsmall",
+    "url": "https://docsmall.com",
+    "desc": "免费在线图片压缩与 PDF 处理",
+    "tags": ["免费在线图片压缩", "GIF 压缩", "PDF 合并", "PDF 分割"]
+  },
+  {
+    "name": "cloudconvert",
+    "url": "https://cloudconvert.com/ttf-to-woff2",
+    "desc": "在线字体格式转换工具",
+    "tags": ["字体转换", "ttf 转 woff2", "工具箱"]
+  },
+  {
+    "name": "Punycode 域名加密/解密",
+    "url": "https://tool.ip138.com/punycode",
+    "desc": "中文域名 Punycode 编码转换",
+    "tags": ["域名加密", "Punycode", "中文域名"]
+  },
+  {
+    "name": "作图网",
+    "url": "http://zuotu.399q.cn",
+    "desc": "在线免费制作广告图、店标、Logo",
+    "tags": ["在线制作广告图片", "广告横幅", "广告店标", "广告 LOGO"]
+  },
+  {
+    "name": "96 编辑器",
+    "url": "https://bj.96weixin.com/tools/meihua",
+    "desc": "免费二维码美化工具",
+    "tags": ["免费二维码美化", "在线美化二维码", "个性二维码"]
+  },
+  {
+    "name": "美化码",
+    "url": "https://www.meihuama.com",
+    "desc": "二维码美化创意工坊",
+    "tags": ["免费二维码美化", "在线美化二维码", "个性二维码", "二维码创意工坊"]
+  },
+  {
+    "name": "帮小忙",
+    "url": "https://tool.browser.qq.com/prettify_qrcode.html?addressbar=hide",
+    "desc": "腾讯 QQ 浏览器二维码美化工具箱",
+    "tags": ["免费二维码美化", "在线美化二维码", "腾讯 QQ 浏览器", "工具箱"]
+  },
+  {
+    "name": "第九工厂",
+    "url": "https://909th.com?code=A30119",
+    "desc": "AI 艺术二维码生成与模板交易平台",
+    "tags": ["免费二维码美化", "AI 二维码生成", "艺术二维码模板"]
+  },
+  {
+    "name": "回溯机",
+    "url": "https://web.archive.org",
+    "desc": "互联网档案馆，查看网站历史快照",
+    "tags": ["网站历史", "回溯机", "Wayback"]
+  },
+  {
+    "name": "灵鹿",
+    "url": "https://linglu.pro",
+    "desc": "免费 AI 对话助手",
+    "tags": ["免费 AI", "AI", "灵鹿 linglu"]
+  },
+  {
+    "name": "大巫",
+    "url": "https://dawu.world",
+    "desc": "免费 OpenAI 对话工具",
+    "tags": ["免费 openAi", "AI"]
+  },
+  {
+    "name": "新逸网络",
+    "url": "https://www.xinac.net",
+    "desc": "免费 API 接口聚合服务",
+    "tags": ["免费 api", "新逸网络"]
+  },
+  {
+    "name": "api 小白",
+    "url": "https://apixb.github.io",
+    "desc": "免费静态 API 接口站点",
+    "tags": ["api 小白", "apixb", "免费静态接口"]
+  }
+]

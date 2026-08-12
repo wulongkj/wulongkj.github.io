@@ -1,0 +1,26 @@
+[
+  {
+    "name": "freeCodeCamp",
+    "url": "https://www.freecodecamp.org/chinese",
+    "desc": "免费学习编程的优质开源社区",
+    "tags": ["在线免费学习编程", "优秀 github 项目", "开源"]
+  },
+  {
+    "name": "菜鸟教程",
+    "url": "https://www.runoob.com",
+    "desc": "极受欢迎的编程入门中文教程",
+    "tags": ["在线免费学习编程", "runoob", "教程"]
+  },
+  {
+    "name": "w3counter",
+    "url": "https://www.w3counter.com/signup",
+    "desc": "免费网站访问统计与工具",
+    "tags": ["w3counter", "免费网络统计", "免费站长统计"]
+  },
+  {
+    "name": "GitHub",
+    "url": "https://github.com",
+    "desc": "全球最大的开源代码托管平台",
+    "tags": ["github", "开源", "代码托管"]
+  }
+]

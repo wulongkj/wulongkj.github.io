@@ -1,0 +1,20 @@
+[
+  {
+    "name": "MediaFire",
+    "url": "https://mediafire.com",
+    "desc": "国外免费网盘，大文件分享",
+    "tags": ["MediaFire", "网盘", "免费", "文件分享"]
+  },
+  {
+    "name": "夸克网盘",
+    "url": "https://pan.myquark.cn/",
+    "desc": "免费在线网盘，容量大速度快",
+    "tags": ["夸克网盘", "免费在线网盘", "免费网盘"]
+  },
+  {
+    "name": "文叔叔",
+    "url": "https://www.wenshushu.cn",
+    "desc": "免登录文件传输与分享网盘",
+    "tags": ["文叔叔", "网盘", "免费", "文件分享"]
+  }
+]

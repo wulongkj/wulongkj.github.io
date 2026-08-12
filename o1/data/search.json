@@ -1,0 +1,38 @@
+[
+  {
+    "name": "百度",
+    "url": "https://www.baidu.com",
+    "desc": "全球最大的中文搜索引擎",
+    "tags": ["百度", "搜索引擎", "中国"]
+  },
+  {
+    "name": "谷歌",
+    "url": "https://www.google.com",
+    "desc": "全球使用最广泛的搜索引擎",
+    "tags": ["谷歌", "搜索引擎", "Google"]
+  },
+  {
+    "name": "F搜",
+    "url": "https://fsoufsou.com",
+    "desc": "简洁快速的聚合搜索引擎",
+    "tags": ["F搜", "搜索引擎"]
+  },
+  {
+    "name": "小白网",
+    "url": "https://xiaobainet.github.io",
+    "desc": "站长小白导航与学习站点",
+    "tags": ["小白网", "xiaobainet", "github", "导航"]
+  },
+  {
+    "name": "导航网站",
+    "url": "http://wulongkj.github.io",
+    "desc": "个人导航网站项目主页",
+    "tags": ["导航", "导航网站"]
+  },
+  {
+    "name": "自媒体库",
+    "url": "https://hao.rzfyu.com/1/",
+    "desc": "新媒体运营导航大全",
+    "tags": ["自媒体库", "新媒体导航", "文案版", "素材版", "平台版", "运营版"]
+  }
+]

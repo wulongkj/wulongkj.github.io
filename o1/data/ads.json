@@ -1,0 +1,22 @@
+{
+  "image": [
+    {
+      "title": "图片广告位（示例）",
+      "url": "https://www.chaitin.cn/",
+      "img": "/assets/ad-banner.svg",
+      "alt": "示例广告：网络安全防护"
+    }
+  ],
+  "text": [
+    {
+      "title": "文字广告位 1（示例）",
+      "url": "https://www.chaitin.cn/",
+      "text": "长亭科技 - 智能安全防护专家"
+    },
+    {
+      "title": "文字广告位 2（示例）",
+      "url": "https://fsoufsou.com",
+      "text": "F搜 - 简洁好用的搜索引擎"
+    }
+  ]
+}

@@ -1,0 +1,98 @@
+[
+  {
+    "name": "百度翻译",
+    "url": "https://fanyi.baidu.com",
+    "desc": "百度在线翻译，支持多语言",
+    "tags": ["百度翻译", "翻译", "在线翻译"]
+  },
+  {
+    "name": "谷歌地图",
+    "url": "https://maps.google.com",
+    "desc": "谷歌在线地图服务",
+    "tags": ["谷歌地图", "地图", "谷歌"]
+  },
+  {
+    "name": "谷歌邮箱",
+    "url": "https://accounts.google.com/b/0/AddMailService",
+    "desc": "Gmail 谷歌邮箱注册入口",
+    "tags": ["谷歌邮箱", "Gmail", "邮箱"]
+  },
+  {
+    "name": "10 分钟邮箱",
+    "url": "https://10minutemail.org/",
+    "desc": "一次性临时邮箱服务",
+    "tags": ["10 分钟邮箱", "临时邮箱"]
+  },
+  {
+    "name": "Temp Mail",
+    "url": "https://etempmail.com/zh",
+    "desc": "免费临时邮箱，接收验证邮件",
+    "tags": ["临时邮箱", "临时", "邮箱", "mail"]
+  },
+  {
+    "name": "vivo 官网",
+    "url": "https://www.vivo.com.cn/service/authenticityCheck/index",
+    "desc": "vivo 手机真伪查询服务",
+    "tags": ["vivo 官网", "真伪查询"]
+  },
+  {
+    "name": "oppo 官网",
+    "url": "https://support.oppo.com/cn/check",
+    "desc": "OPPO 手机真伪查询服务",
+    "tags": ["oppo 官网", "真伪查询"]
+  },
+  {
+    "name": "路人侠二级域名分发",
+    "url": "https://ilun.link/login",
+    "desc": "免费测试用二级域名服务",
+    "tags": ["免费二级域名", "测试域名"]
+  },
+  {
+    "name": "onamae",
+    "url": "https://www.onamae.com",
+    "desc": "日本域名注册商",
+    "tags": ["日本域名注册商", "注册域名"]
+  },
+  {
+    "name": "payeer",
+    "url": "https://payeer.com/cn/",
+    "desc": "多国家电子钱包支付平台",
+    "tags": ["多国家电子钱包", "payeer 钱包"]
+  },
+  {
+    "name": "faucetpay",
+    "url": "https://faucetpay.io/account/login",
+    "desc": "多虚拟币水龙头钱包",
+    "tags": ["faucetpay", "虚拟币钱包", "水龙头钱包"]
+  },
+  {
+    "name": "GMO 积分",
+    "url": "https://point.gmo.jp",
+    "desc": "日本问卷调查赚积分平台",
+    "tags": ["日本问卷调查", "免费赚日元"]
+  },
+  {
+    "name": "gemly",
+    "url": "https://gemly.gg",
+    "desc": "玩玩游戏赚美元平台",
+    "tags": ["玩赚", "玩游戏赚美元"]
+  },
+  {
+    "name": "Qolle",
+    "url": "https://qolle.biz",
+    "desc": "在线看视频赚虚拟币平台",
+    "tags": ["Qolle", "在线看视频赚钱", "虚拟币"]
+  },
+  {
+    "name": "Coinfola",
+    "url": "https://coinfola.com",
+    "desc": "在线看广告赚比特币平台",
+    "tags": ["Coinfola", "在线赚钱比特币", "虚拟币"]
+  },
+  {
+    "name": "DNS User",
+    "url": "https://sld.swszz.cn",
+    "desc": "免费二级域名申请服务",
+    "tags": ["免费", "二级域名"]
+  }
+]

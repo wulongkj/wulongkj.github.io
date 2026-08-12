@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>正在跳转 - 极简导航</title>
+<link rel="icon" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="%236678e6"/><stop offset="1" stop-color="%23a855f7"/></linearGradient></defs><rect width="64" height="64" rx="14" fill="url(%23g)"/><path d="M26 20l14 12-14 12z" fill="white"/></svg>'>
+<style>
+:root {
+  --bg-0: #0b1020; --bg-1: #141a3a; --bg-2: #251d4f;
+  --ink: #eef1ff; --ink-dim: #9aa3c7; --accent: #818cf8;
+  --glass: rgba(255,255,255,.06); --glass-border: rgba(255,255,255,.12);
+  --radius: 18px;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { color-scheme: dark; }
+body {
+  min-height: 100vh; font-family: "PingFang SC", "HarmonyOS Sans SC", "Microsoft YaHei", "Noto Sans SC", system-ui, sans-serif;
+  color: var(--ink); background: linear-gradient(160deg, var(--bg-0), var(--bg-1) 55%, var(--bg-2)); overflow-x: hidden;
+}
+.decor { position: fixed; inset: 0; z-index: -1; overflow: hidden; }
+.decor::before, .decor::after { content: ""; position: absolute; border-radius: 50%; filter: blur(90px); opacity: .5; }
+.decor::before { width: 480px; height: 480px; left: -140px; top: -160px; background: #4f46e5; }
+.decor::after { width: 440px; height: 440px; right: -120px; bottom: -140px; background: #7c3aed; }
+
+.wrap { max-width: 760px; margin: 0 auto; padding: 28px 20px 48px; }
+
+/* ---- 图片广告位 ---- */
+.ad-banner { display: block; margin-bottom: 22px; border-radius: 14px; overflow: hidden; border: 1px solid var(--glass-border); }
+.ad-banner img { display: block; width: 100%; height: auto; }
+.ad-banner.hidden, .ad-text.hidden { display: none; }
+
+/* ---- 卡片 ---- */
+.panel {
+  background: var(--glass); border: 1px solid var(--glass-border); border-radius: var(--radius);
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  padding: 34px 30px; text-align: center; box-shadow: 0 18px 50px rgba(0,0,0,.35);
+}
+.loader { width: 64px; height: 64px; margin: 0 auto 20px; border-radius: 20px; display: grid; place-items: center; background: linear-gradient(135deg, var(--accent), #a855f7); }
+.ring { width: 30px; height: 30px; border-radius: 50%; border: 3px solid rgba(255,255,255,.25); border-top-color: #fff; animation: spin .8s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.panel h1 { font-size: 21px; font-weight: 700; word-break: break-all; }
+.panel .dst { margin-top: 12px; font-size: 13.5px; color: var(--ink-dim); word-break: break-all; }
+.panel .dst a { color: var(--accent); text-decoration: none; }
+.panel .dst a:hover { text-decoration: underline; }
+.count { margin-top: 20px; font-size: 14px; color: var(--ink-dim); }
+.count b { color: var(--accent); font-size: 16px; }
+.btn {
+  display: inline-block; margin-top: 22px; padding: 12px 34px; border-radius: 999px; text-decoration: none;
+  font-size: 15px; font-weight: 600; color: #fff; background: linear-gradient(135deg, var(--accent), #a855f7);
+  box-shadow: 0 10px 26px rgba(99,102,241,.4); transition: transform .2s, box-shadow .2s;
+}
+.btn:hover { transform: translateY(-2px); box-shadow: 0 14px 32px rgba(99,102,241,.5); }
+
+/* ---- 文字广告位 ---- */
+.ad-text { margin-top: 22px; border-top: 1px dashed var(--glass-border); padding-top: 18px; text-align: left; }
+.ad-text .ad-label { font-size: 12px; color: rgba(154,163,199,.6); letter-spacing: 1px; margin-bottom: 12px; }
+.ad-text a {
+  display: flex; justify-content: space-between; align-items: center; gap: 10px; text-decoration: none;
+  padding: 12px 16px; border-radius: 12px; color: var(--ink); background: rgba(255,255,255,.04);
+  border: 1px solid transparent; transition: all .2s;
+}
+.ad-text a + a { margin-top: 8px; }
+.ad-text a:hover { border-color: var(--glass-border); background: rgba(129,140,248,.12); }
+.ad-text .t { font-size: 14px; font-weight: 600; }
+.ad-text .u { font-size: 12px; color: var(--ink-dim); flex: none; }
+
+footer { text-align: center; margin-top: 28px; color: rgba(154,163,199,.5); font-size: 12px; }
+</style>
+</head>
+<body>
+<div class="decor" aria-hidden="true"></div>
+
+<div class="wrap">
+  <!-- 图片广告位（无数据自动隐藏） -->
+  <a class="ad-banner hidden" id="adBanner" href="#" target="_blank" rel="noopener sponsored">
+    <img id="adImg" src="" alt="">
+  </a>
+
+  <div class="panel">
+    <div class="loader"><div class="ring"></div></div>
+    <h1 id="title">正在前往目标网站…</h1>
+    <p class="dst" id="dst"></p>
+    <p class="count">将在 <b id="count">5</b> 秒后自动跳转，或点击下方按钮立即前往</p>
+    <a class="btn" id="go" href="#" rel="noopener">立即前往 ›</a>
+
+    <!-- 文字广告位（无数据自动隐藏） -->
+    <div class="ad-text hidden" id="adText">
+      <div class="ad-label">— 广告 · 推广 —</div>
+      <div id="adLinks"></div>
+    </div>
+  </div>
+
+  <footer>极简导航 · 跳转页</footer>
+</div>
+
+<script>
+(() => {
+  "use strict";
+  const params = new URLSearchParams(location.search);
+  const name = params.get("name") || "";
+  let target = params.get("url") || "";
+
+  try {
+    const u = new URL(target);
+    if (!/^https?:$/.test(u.protocol)) throw new Error("bad protocol");
+    target = u.href;
+  } catch (e) {
+    target = "https://www.baidu.com/s?wd=" + encodeURIComponent(name || "极简导航");
+  }
+
+  const go = document.getElementById("go");
+  const dst = document.getElementById("dst");
+  go.href = target;
+  dst.textContent = name ? name + "（" + new URL(target).host + "）" : new URL(target).host;
+  document.title = "正在跳转到" + (name || "目标网站") + " - 极简导航";
+
+  let left = 5;
+  const countEl = document.getElementById("count");
+  const timer = setInterval(() => {
+    left--;
+    countEl.textContent = left;
+    if (left <= 0) { clearInterval(timer); location.replace(target); }
+  }, 1000);
+  go.addEventListener("click", () => clearInterval(timer));
+
+  /* 加载广告配置 */
+  fetch("/api/ads")
+    .then((r) => r.json())
+    .then((ads) => {
+      const img = ads && ads.image && ads.image[0];
+      const banner = document.getElementById("adBanner");
+      if (img && img.img) {
+        banner.href = img.url || "#";
+        document.getElementById("adImg").src = img.img;
+        banner.classList.remove("hidden");
+      }
+
+      const texts = (ads && ads.text) || [];
+      if (texts.length) {
+        const box = document.getElementById("adLinks");
+        box.innerHTML = texts.map((t) =>
+          '<a href="' + (t.url || "#") + '" target="_blank" rel="noopener sponsored"><span class="t">' + t.text + "</span><span class=\"u\">广告</span></a>"
+        ).join("");
+        document.getElementById("adText").classList.remove("hidden");
+      }
+    })
+    .catch(() => {});
+})();
+</script>
+</body>
+</html>

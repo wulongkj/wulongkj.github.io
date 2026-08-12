@@ -1,0 +1,20 @@
+[
+  {
+    "name": "灵鹿",
+    "url": "https://linglu.pro",
+    "desc": "免费 AI 对话助手",
+    "tags": ["免费 AI", "AI", "灵鹿 linglu"]
+  },
+  {
+    "name": "大巫",
+    "url": "https://dawu.world",
+    "desc": "免费 OpenAI 对话工具",
+    "tags": ["免费 openAi", "AI", "ChatGPT"]
+  },
+  {
+    "name": "新逸网络",
+    "url": "https://www.xinac.net",
+    "desc": "免费 AI / API 接口聚合服务",
+    "tags": ["免费 api", "新逸网络", "AI"]
+  }
+]

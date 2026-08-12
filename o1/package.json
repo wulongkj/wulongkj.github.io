@@ -1,0 +1,14 @@
+{
+  "name": "o1-mini-nav",
+  "version": "1.0.0",
+  "description": "高并发骨架屏导航搜索站：全量 JSON 搜索 + 跳转页广告位",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "express": "^5.2.1"
+  }
+}
