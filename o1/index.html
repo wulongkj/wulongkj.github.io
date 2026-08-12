@@ -235,6 +235,7 @@ footer a:hover { color: var(--accent); }
     ["#22d3ee", "#3b82f6"], ["#4ade80", "#22c55e"]
   ];
   const SKEL_N = 10;
+  const DATA_FILES = ["search.json", "tools.json", "ai.json", "dev.json", "cloud.json", "video.json", "other.json"];
 
   let seq = 0, timer = null;
 
@@ -278,6 +279,24 @@ footer a:hover { color: var(--accent); }
     results.style.display = on ? "" : "none";
   };
 
+  /* 服务端 API 优先；GitHub Pages 等纯静态环境自动降级为前端遍历 data/*.json */
+  const searchAll = (q) =>
+    fetch("/api/search?q=" + encodeURIComponent(q))
+      .then((r) => (r.ok ? r.json() : Promise.reject(new Error("no-api"))))
+      .catch(() => frontendSearch(q));
+
+  const frontendSearch = (q) =>
+    Promise.all(DATA_FILES.map((f) => fetch("data/" + f).then((r) => (r.ok ? r.json() : [])).catch(() => [])))
+      .then((groups) => groups.flat())
+      .then((items) => {
+        const kw = q.toLowerCase();
+        const list = items
+          .filter((it) => it && it.name && it.url)
+          .filter((it) => [it.name, it.url, it.desc || "", (it.tags || []).join(" ")].join(" ").toLowerCase().includes(kw))
+          .slice(0, 50);
+        return { total: list.length, list };
+      });
+
   const doSearch = (kw) => {
     const q = kw.trim();
     if (!q) { reset(); return; }
@@ -286,29 +305,21 @@ footer a:hover { color: var(--accent); }
     renderSkeleton();
     metaEl.innerHTML = "搜索 <b class=\"query\">" + escapeHTML(q) + "</b> 中…";
 
-    fetch("/api/search?q=" + encodeURIComponent(q))
-      .then((r) => r.json())
-      .then((data) => {
-        if (mySeq !== seq || !document.body.classList.contains("searching")) return;
-        const list = data.list || [];
-        metaEl.innerHTML = "共 <b>" + list.length + "</b> 条结果 · 关键字 <b class=\"query\">" + escapeHTML(q) + "</b>";
-        skeletonEl.innerHTML = "";
-        if (!list.length) {
-          cardsEl.hidden = true;
-          noneQuery.textContent = q;
-          noneEl.hidden = false;
-        } else {
-          noneEl.hidden = true;
-          cardsEl.innerHTML = list.map(cardHTML).join("");
-          cardsEl.hidden = false;
-        }
-      })
-      .catch(() => {
-        if (mySeq !== seq) return;
-        skeletonEl.innerHTML = "";
+    searchAll(q).then((data) => {
+      if (mySeq !== seq || !document.body.classList.contains("searching")) return;
+      const list = data.list || [];
+      metaEl.innerHTML = "共 <b>" + list.length + "</b> 条结果 · 关键字 <b class=\"query\">" + escapeHTML(q) + "</b>";
+      skeletonEl.innerHTML = "";
+      if (!list.length) {
+        cardsEl.hidden = true;
         noneQuery.textContent = q;
         noneEl.hidden = false;
-      });
+      } else {
+        noneEl.hidden = true;
+        cardsEl.innerHTML = list.map(cardHTML).join("");
+        cardsEl.hidden = false;
+      }
+    });
   };
 
   const reset = () => {

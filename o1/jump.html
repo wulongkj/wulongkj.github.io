@@ -125,28 +125,31 @@ footer { text-align: center; margin-top: 28px; color: rgba(154,163,199,.5); font
   }, 1000);
   go.addEventListener("click", () => clearInterval(timer));
 
-  /* 加载广告配置 */
-  fetch("/api/ads")
-    .then((r) => r.json())
-    .then((ads) => {
-      const img = ads && ads.image && ads.image[0];
-      const banner = document.getElementById("adBanner");
-      if (img && img.img) {
-        banner.href = img.url || "#";
-        document.getElementById("adImg").src = img.img;
-        banner.classList.remove("hidden");
-      }
+  /* 加载广告配置：API 优先，静态环境回退到 data/ads.json */
+  const loadAds = () =>
+    fetch("/api/ads")
+      .then((r) => (r.ok ? r.json() : Promise.reject(new Error("no-api"))))
+      .catch(() => fetch("data/ads.json").then((r) => (r.ok ? r.json() : null)));
 
-      const texts = (ads && ads.text) || [];
-      if (texts.length) {
-        const box = document.getElementById("adLinks");
-        box.innerHTML = texts.map((t) =>
-          '<a href="' + (t.url || "#") + '" target="_blank" rel="noopener sponsored"><span class="t">' + t.text + "</span><span class=\"u\">广告</span></a>"
-        ).join("");
-        document.getElementById("adText").classList.remove("hidden");
-      }
-    })
-    .catch(() => {});
+  loadAds().then((ads) => {
+    if (!ads) return;
+    const img = ads.image && ads.image[0];
+    const banner = document.getElementById("adBanner");
+    if (img && img.img) {
+      banner.href = img.url || "#";
+      document.getElementById("adImg").src = img.img;
+      banner.classList.remove("hidden");
+    }
+
+    const texts = ads.text || [];
+    if (texts.length) {
+      const box = document.getElementById("adLinks");
+      box.innerHTML = texts.map((t) =>
+        '<a href="' + (t.url || "#") + '" target="_blank" rel="noopener sponsored"><span class="t">' + t.text + "</span><span class=\"u\">广告</span></a>"
+      ).join("");
+      document.getElementById("adText").classList.remove("hidden");
+    }
+  });
 })();
 </script>
 </body>
